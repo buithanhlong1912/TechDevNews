@@ -1,11 +1,10 @@
-import * as React from "react";
+import React from 'react'
 
-const Home = () => {
+export default function Home() {
   return (
-    <>
-      <h1>This is Home</h1>
-    </>
-  );
-};
+    <div>
+      
+    </div>
+  )
+}
 
-export default Home;
