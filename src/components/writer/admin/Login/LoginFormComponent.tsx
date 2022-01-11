@@ -2,11 +2,25 @@ import { useFormik } from "formik";
 import * as React from "react";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { login } from "../../../../apis/service";
+import { IAdmin } from "../../../../interface";
 import style from "./style.module.css";
 
 const LoginFormComponent = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const formik = useFormik({
+    initialValues: {
+      userName: "",
+      password: "",
+    },
+    onSubmit: async (values) => {
+      const response = await login(values);
+      // localStorage.setItem("admin")
+
+      const admin: IAdmin = response;
+      console.log(admin);
+      // localStorage.setItem("admin", JSON.stringify(admin));
+    },
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -22,12 +36,13 @@ const LoginFormComponent = () => {
       onSubmit={formik.handleSubmit}
     >
       <Form.Group className="mb-3">
-        <Form.Label>Name</Form.Label>
+        <Form.Label>Email</Form.Label>
         <Form.Control
-          name="email"
+          name="userName"
+          placeholder="Enter your email address"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.email}
+          value={formik.values.userName}
           type="email"
         />
       </Form.Group>
@@ -35,6 +50,7 @@ const LoginFormComponent = () => {
         <Form.Label>Password</Form.Label>
         <Form.Control
           name="password"
+          placeholder="Enter your password"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.password}
