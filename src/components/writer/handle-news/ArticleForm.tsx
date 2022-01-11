@@ -8,10 +8,11 @@ import { createAricle } from '../../../apis/service';
 import { ArticleModalFormAddDTO } from '../../../interface';
 
 interface Props {
-    type: string
+    type: string,
+    reLoad: () => void
 }
 
-export default function ArticleForm({ type }: Props): ReactElement {
+export default function ArticleForm({ type, reLoad }: Props): ReactElement {
 
     const navigate = useNavigate();
 
@@ -34,9 +35,10 @@ export default function ArticleForm({ type }: Props): ReactElement {
                 ...values,
                 content: editorContent,
                 authorId: authorId
-            }
+            }            
             await createAricle(article);
             navigate('/admin')
+            reLoad();
         },
     });
 
@@ -93,7 +95,7 @@ export default function ArticleForm({ type }: Props): ReactElement {
                         name="content"
                         onChange={handleChange}
                         setContents={formik.values.content}
-                        setDefaultStyle="font-family: Arial; font-size: 12px;"
+                        setDefaultStyle="font-family: Arial; font-size: 14px;"
 
                         setOptions={{
                             height: '80vh',

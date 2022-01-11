@@ -45,7 +45,7 @@ export default function ArticleList({ listArticle = [] }: Props): ReactElement {
           <div>You don't have any article</div>
         )}
       </div>
-      <div>
+      <div  className="my-2" >
         <Button onClick={()=>{navigate('/admin/create-new')}}>Create new</Button>
       </div>
     </>
