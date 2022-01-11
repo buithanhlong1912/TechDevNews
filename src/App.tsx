@@ -1,5 +1,6 @@
-import React from "react";
+import React from 'react';
 import "./App.css";
+<<<<<<< Updated upstream
 
 function App() {
   return (
@@ -18,6 +19,24 @@ function App() {
         </a>
       </header>
     </div>
+=======
+
+import Home from "./pages/Home";
+import AdminDashboard from "./components/writer/admin/dashboard/AdminDashboard";
+import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
+import NewsByCategoryCom from './components/reader/newsByCategoryCom';
+
+function App() {
+  return (
+      <Router>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/admin/*" element={<AdminDashboard />} />
+          <Route path="/category/:id" element={<NewsByCategoryCom />} />
+        </Routes>
+      </Router>
+>>>>>>> Stashed changes
   );
 }
 
