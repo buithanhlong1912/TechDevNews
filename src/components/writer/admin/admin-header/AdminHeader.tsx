@@ -11,8 +11,6 @@ export default function AdminHeader({ }: Props): ReactElement {
   return (
     <header>
       <h1 className="text-center my-2">Admin Dashboard</h1>
-      {/* <img src="../../../../logo/techdevnews_logo.png" alt="" /> */}
-
       <div>
         <Nav variant="pills">
           <Nav.Item>
