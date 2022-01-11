@@ -1,15 +1,18 @@
 import React, { ReactElement, useState } from "react";
 import { Nav } from "react-bootstrap";
-import { BrowserRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-interface Props {}
 
-export default function AdminHeader({}: Props): ReactElement {
+interface Props { }
+
+export default function AdminHeader({ }: Props): ReactElement {
   const [activeClass, setActiveClass] = useState("manage");
 
   return (
     <header>
       <h1 className="text-center my-2">Admin Dashboard</h1>
+      {/* <img src="../../../../logo/techdevnews_logo.png" alt="" /> */}
+
       <div>
         <Nav variant="pills">
           <Nav.Item>

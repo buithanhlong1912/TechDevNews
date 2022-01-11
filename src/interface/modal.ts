@@ -11,3 +11,12 @@ export interface ArticleModal {
     disLike: number,
     view: number
 }
+
+export interface ArticleModalFormAddDTO {
+    title: string,
+    description: string,
+    content: string,
+    cover:string,
+    authorId: number,
+    categoryId: number,
+}

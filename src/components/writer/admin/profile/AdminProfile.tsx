@@ -4,7 +4,7 @@ interface Props {
     
 }
 
-export default function AdminProfile({}: Props): ReactElement {
+export default function AdminProfile({  }: Props): ReactElement {
     return (
         <div>
             profile here
