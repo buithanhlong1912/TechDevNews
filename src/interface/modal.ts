@@ -20,3 +20,22 @@ export interface ArticleModalFormAddDTO {
     authorId: number,
     categoryId: number,
 }
+
+export interface UserModal {
+  id: number;
+  userName: string;
+  password: string;
+  type: string;
+  info: {
+    name: string;
+    age: number;
+    about: string;
+    avt: string;
+    gender: string;
+  };
+}
+
+export interface IForm {
+  userName: string;
+  password: string;
+}
