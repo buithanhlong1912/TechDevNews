@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { Button, Container, Table } from "react-bootstrap";
-import { getArticlesByAuthorId } from "../../../../apis/service";
+import { useNavigate } from "react-router-dom";
 import { ArticleModal } from "../../../../interface";
 
 interface Props {
@@ -9,38 +9,45 @@ interface Props {
 
 export default function ArticleList({ listArticle = [] }: Props): ReactElement {
 
+  const navigate = useNavigate();
+
   return (
-    <Container className="mt-2">
-      {listArticle.length !== 0 ? (
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Title</th>
-              <th>Date Created</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {listArticle.map((article, i) => (
-              <tr key={article.id}>
-                <td>{i}</td>
-                <td>{article.title}</td>
-                <td>{article.dateCreate}</td>
-                <td>
-                  <Button variant="success">Edit</Button>
-                </td>
-                <td>
-                  <Button variant="danger">Delete</Button>
-                </td>
+    < >
+      <div className="list-article">
+        {listArticle.length !== 0 ? (
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Date Created</th>
+                <th>Edit</th>
+                <th>Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      ) : (
-        <div>You don't have any article</div>
-      )}
-    </Container>
+            </thead>
+            <tbody>
+              {listArticle.map((article, i) => (
+                <tr key={article.id}>
+                  <td>{i}</td>
+                  <td>{article.title}</td>
+                  <td>{article.dateCreate}</td>
+                  <td>
+                    <Button variant="success">Edit</Button>
+                  </td>
+                  <td>
+                    <Button variant="danger">Delete</Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        ) : (
+          <div>You don't have any article</div>
+        )}
+      </div>
+      <div>
+        <Button onClick={()=>{navigate('/admin/create-new')}}>Create new</Button>
+      </div>
+    </>
   );
 }

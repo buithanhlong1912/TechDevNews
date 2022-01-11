@@ -19,7 +19,7 @@ function App() {
         <Route path="/admin/*" element={<AdminDashboard />} />
         <Route path="/admin/login" element={<AdminLogin />} />
       </Routes>
-    </Router>
+    </Router >
   );
 }
 

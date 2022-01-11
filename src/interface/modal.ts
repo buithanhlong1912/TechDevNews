@@ -1,15 +1,24 @@
 export interface ArticleModal {
-  id: number;
-  title: string;
-  description: string;
-  content: string;
-  cover: string;
-  authorId: number;
-  categoryId: number;
-  dateCreate: string;
-  like: number;
-  disLike: number;
-  view: number;
+    id: number,
+    title: string,
+    description: string,
+    content: string,
+    cover:string,
+    authorId: number,
+    categoryId: number,
+    dateCreate: string,
+    like: number,
+    disLike: number,
+    view: number
+}
+
+export interface ArticleModalFormAddDTO {
+    title: string,
+    description: string,
+    content: string,
+    cover:string,
+    authorId: number,
+    categoryId: number,
 }
 
 export interface UserModal {
