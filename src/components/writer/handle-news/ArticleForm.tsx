@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { ReactElement } from 'react';
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
 
-export default function AdminDashboard() {
+interface Props {
+
+}
+
+export default function ArticleForm({ }: Props): ReactElement {
     const handleChange = (content: string) => {
         console.log(content); //Get Content Inside Editor
     }
 
     return (
         <div>
-
             <SunEditor
                 defaultValue="<p>The editor's default value</p>"
                 setOptions={{
@@ -31,7 +34,6 @@ export default function AdminDashboard() {
                         ['save', 'template'],
                         // ['dir', 'dir_ltr', 'dir_rtl'] // "dir": Toggle text direction, "dir_ltr": Right to Left, "dir_rtl": Left to Right
                     ],
-
                 }}
                 setDefaultStyle="font-family: Arial; font-size: 12px;"
                 onChange={handleChange}
