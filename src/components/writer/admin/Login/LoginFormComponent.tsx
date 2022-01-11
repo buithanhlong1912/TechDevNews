@@ -22,14 +22,6 @@ const LoginFormComponent = () => {
     },
   });
 
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    onSubmit: (values) => {},
-  });
-
   return (
     <Form
       className={`position-absolute start-50 top-100 translate-middle ${style.formCont}`}
