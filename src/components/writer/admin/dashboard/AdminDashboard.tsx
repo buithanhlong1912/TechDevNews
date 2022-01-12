@@ -32,17 +32,30 @@ export default function AdminDashboard() {
   const _handleLoad = () => {
     setLoad((load) => !load);
   };
+
   return (
     <Auth orRedirectTo="/admin/login">
       <Container>
         <AdminHeader />
         <Container className="mt-2">
           <Routes>
-            <Route path="/" element={<Navigate to={"/admin/manage-article"} />} />
-            <Route path="/manage-article" element={<ArticleList listArticle={listArticle} />} />
+            <Route
+              path="/"
+              element={<Navigate to={"/admin/manage-article"} />}
+            />
+            <Route
+              path="/manage-article"
+              element={<ArticleList listArticle={listArticle} />}
+            />
             <Route path="/profile" element={<AdminProfile />} />
-            <Route path="/create-new" element={<ArticleForm type={'create'} reLoad={_handleLoad} />} />
-            <Route path="/edit-new/:id" element={<ArticleForm type={'edit'} reLoad={_handleLoad} />} />
+            <Route
+              path="/create-new"
+              element={<ArticleForm type={"create"} reLoad={_handleLoad} />}
+            />
+            <Route
+              path="/edit-new/:id"
+              element={<ArticleForm type={"edit"} reLoad={_handleLoad} />}
+            />
           </Routes>
         </Container>
       </Container>
