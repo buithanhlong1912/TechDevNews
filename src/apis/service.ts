@@ -82,3 +82,24 @@ export async function getListCategories() {
         console.error(error);
     }
 }
+
+export async function getArticlesId(id: string | undefined) {
+    try {
+        if (!id) {
+            return false;
+        }
+        const response = await axios.get('/articles?id=' + id);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export async function editArticlesById(article: ArticleModal) {
+    try {
+        const response = await axios.put('/articles/' + article.id, article);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}

@@ -37,6 +37,7 @@ export default function AdminDashboard() {
           <Route path="/manage-article" element={<ArticleList listArticle={listArticle} />} />
           <Route path="/profile" element={<AdminProfile />} />
           <Route path="/create-new" element={<ArticleForm type={'create'} reLoad={_handleLoad} />} />
+          <Route path="/edit-new/:id" element={<ArticleForm type={'edit'} reLoad={_handleLoad} />} />
         </Routes>
       </Container>
     </Container>

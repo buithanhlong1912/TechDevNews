@@ -1,11 +1,11 @@
 import { useFormik } from 'formik';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
-import { createAricle } from '../../../apis/service';
-import { ArticleModalFormAddDTO } from '../../../interface';
+import { createAricle, editArticlesById, getArticlesId } from '../../../apis/service';
+import { ArticleModal, ArticleModalFormAddDTO } from '../../../interface';
 
 interface Props {
     type: string,
@@ -15,12 +15,10 @@ interface Props {
 export default function ArticleForm({ type, reLoad }: Props): ReactElement {
 
     const navigate = useNavigate();
-
     const [editorContent, setEditorContent] = useState('')
     const handleChange = (content: string) => {
         setEditorContent(content);
     }
-
     const formik = useFormik({
         initialValues: {
             title: '',
@@ -35,12 +33,38 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
                 ...values,
                 content: editorContent,
                 authorId: authorId
-            }            
-            await createAricle(article);
+            }
+            if (type === 'create') {
+                await createAricle(article);
+            }
+            else {
+                const articleClone: ArticleModal = { ...article } as ArticleModal;
+                await editArticlesById(articleClone)
+            }
             navigate('/admin')
             reLoad();
         },
     });
+
+
+    const [aricleById, setAricleById] = useState<ArticleModal>({} as ArticleModal)
+
+    const { id } = useParams();
+
+    const findArticleById = async (id: string | undefined) => {
+        const data = await getArticlesId(id);
+        setAricleById(data[0]);
+    }
+
+    useEffect(() => {
+        findArticleById(id);
+    }, [])
+
+    useEffect(() => {
+        if (aricleById) {
+            formik.setValues(aricleById);
+        }
+    }, [aricleById])
 
     return (
         <div>
