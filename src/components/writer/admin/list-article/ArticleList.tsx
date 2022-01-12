@@ -32,7 +32,7 @@ export default function ArticleList({ listArticle = [] }: Props): ReactElement {
                   <td>{article.title}</td>
                   <td>{article.dateCreate}</td>
                   <td>
-                    <Button variant="success">Edit</Button>
+                    <Button onClick={() => { navigate(`/admin/edit-new/${article.id}`) }} variant="success">Edit</Button>
                   </td>
                   <td>
                     <Button variant="danger">Delete</Button>
@@ -45,8 +45,8 @@ export default function ArticleList({ listArticle = [] }: Props): ReactElement {
           <div>You don't have any article</div>
         )}
       </div>
-      <div  className="my-2" >
-        <Button onClick={()=>{navigate('/admin/create-new')}}>Create new</Button>
+      <div className="my-2" >
+        <Button onClick={() => { navigate('/admin/create-new') }}>Create new</Button>
       </div>
     </>
   );
