@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { getArticlesByAuthorId } from "../../../../apis/service";
+import { getArticles, getArticlesByAuthorId } from "../../../../apis/service";
 import Auth from "../../../../guard/AuthGuard";
 import AuthGuard from "../../../../guard/AuthGuard";
 import { ArticleModal } from "../../../../interface";
@@ -15,10 +15,7 @@ export default function AdminDashboard() {
   const [load, setLoad] = useState(true);
 
   const getArticleFromApis = async () => {
-    const idAuthor = 1;
-    const listArticleFromApis: ArticleModal[] = await getArticlesByAuthorId(
-      idAuthor
-    );
+    const listArticleFromApis: ArticleModal[] = await getArticles();
     setListArticle(listArticleFromApis);
   };
 

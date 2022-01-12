@@ -19,6 +19,7 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
     const handleChange = (content: string) => {
         setEditorContent(content);
     }
+
     const formik = useFormik({
         initialValues: {
             title: '',
@@ -110,6 +111,15 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
                         id="categoryId"
                         onChange={formik.handleChange}
                         value={formik.values.categoryId}
+                    />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Author</Form.Label>
+                    <Form.Control
+                        type="text"
+                        disabled
+                        value={'aa'}
                     />
                 </Form.Group>
 
