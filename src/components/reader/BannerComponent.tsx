@@ -1,5 +1,5 @@
 import { ArticleModal } from '../../interface';
-import './styleHome.css'
+import './StyleHomePage.css'
 import { useNavigate } from 'react-router-dom';
 
 interface ITop4 {
@@ -45,17 +45,17 @@ export default function HomePageCom1({ listTop4 }: ITop4) {
                     <div className="row px-5 py-4 borderCom1 rounded-top">
                         <div className="col-12 col-md-4 px-4">
                             <p className="h5">{listTop4[1].title} </p>
-                            <span className="btn btn-outline-info">{getCategory(listTop4[1].categoryId)} </span>
+                            <span onClick={()=>handleCategory(listTop4[1].categoryId)} className="btn btn-outline-info">{getCategory(listTop4[1].categoryId)} </span>
                             <span className="p-3">{listTop4[1].like}  <i className="far fa-heart"></i></span>
                         </div>
                         <div className="col-12 col-md-4 px-4">
                             <p className="h5">{listTop4[2].title} </p>
-                            <span className="btn btn-outline-info">{getCategory(listTop4[2].categoryId)} </span>
+                            <span onClick={()=>handleCategory(listTop4[2].categoryId)} className="btn btn-outline-info">{getCategory(listTop4[2].categoryId)} </span>
                             <span className="p-3">{listTop4[2].like}  <i className="far fa-heart"></i></span>
                         </div>
                         <div className="col-12 col-md-4 px-4">
                             <p className="h5">{listTop4[3].title} </p>
-                            <span className="btn btn-outline-info">{getCategory(listTop4[3].categoryId)} </span>
+                            <span onClick={()=>handleCategory(listTop4[3].categoryId)} className="btn btn-outline-info">{getCategory(listTop4[3].categoryId)} </span>
                             <span className="p-3">{listTop4[3].like}  <i className="far fa-heart"></i></span>
                         </div>
                     </div>

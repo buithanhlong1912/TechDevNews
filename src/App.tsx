@@ -9,13 +9,14 @@ import {
 import Home from "./pages/Home";
 import AdminDashboard from "./components/writer/admin/dashboard/AdminDashboard";
 import AdminLogin from "./pages/LoginAdmin/LoginAdmin";
-import NewsByCategoryCom from './components/reader/newsByCategoryCom';
+import NewsByCategoryCom from './components/reader/NewsByCategoryCom';
+
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/home" element={<Home />} />
+        <Route path="/home/:id" element={<Home />} />
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/admin/*" element={<AdminDashboard />} />
         <Route path="/admin/login" element={<AdminLogin />} />
