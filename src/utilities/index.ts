@@ -6,10 +6,10 @@ const getEmailFromLocal = (): string => {
   return "";
 };
 
-const getAdminFromLocal = (): IAdmin | boolean => {
+const getAdminFromLocal = () => {
   const admin = localStorage.getItem("admin");
   if (typeof admin === "string") return JSON.parse(admin);
   return false;
 };
 
-export { getEmailFromLocal };
+export { getEmailFromLocal, getAdminFromLocal };
