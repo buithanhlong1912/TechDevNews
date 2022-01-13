@@ -1,11 +1,13 @@
-import React from 'react';
-import HomePageComponent from '../components/reader/HomePageComponent';
-
-
+import React from 'react'
+import ArticleDetails from '../components/ArticleDetails/ArticleDetails'
+import Footer from '../components/Footer/Footer';
+import Header from '../components/Header/Header';
 export default function Home() {
   return (
     <div>
-      <HomePageComponent />
+      <Header/>
+      <ArticleDetails />
+      <Footer />
     </div>
-  )
+  );
 }
