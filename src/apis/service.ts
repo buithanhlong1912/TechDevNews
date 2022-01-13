@@ -21,15 +21,6 @@ export async function getArticlesById(id: number) {
   }
 }
 
-export async function getArticlesByAuthorId(id: number) {
-  try {
-    const response = await axios.get("/articles?authorId=" + id);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 export async function getAuthors() {
   try {
     const response = await axios.get("/users");
