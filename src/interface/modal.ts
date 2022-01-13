@@ -52,3 +52,18 @@ export interface IForm {
   userName: string;
   password: string;
 }
+
+export interface ArticleDetailDTO {
+  id: number;
+  title: string;
+  description: string;
+  content: string;
+  cover: string;
+  authorId: number;
+  categoryId: number;
+  dateCreate: string;
+  like: number;
+  disLike: number;
+  view: number;
+  user: IAdmin
+}

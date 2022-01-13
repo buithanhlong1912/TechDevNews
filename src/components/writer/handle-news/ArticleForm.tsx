@@ -5,7 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css';
 import { createAricle, editArticlesById, getArticlesId } from '../../../apis/service';
-import { ArticleModal, ArticleModalFormAddDTO } from '../../../interface';
+import { ArticleDetailDTO, ArticleModal, ArticleModalFormAddDTO, IAdmin } from '../../../interface';
+import { getAdminFromLocal } from '../../../utilities';
 
 interface Props {
     type: string,
@@ -39,8 +40,9 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
                 await createAricle(article);
             }
             else {
-                const articleClone: ArticleModal = { ...article } as ArticleModal;
-                await editArticlesById(articleClone)
+                const articleClone: ArticleDetailDTO = { ...article } as ArticleDetailDTO;
+                const { user, ...rest } = articleClone;
+                await editArticlesById(rest)
             }
             navigate('/admin')
             reLoad();
@@ -48,13 +50,13 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
     });
 
 
-    const [aricleById, setAricleById] = useState<ArticleModal>({} as ArticleModal)
+    const [aricleById, setAricleById] = useState<ArticleDetailDTO>({} as ArticleDetailDTO)
 
     const { id } = useParams();
 
     const findArticleById = async (id: string | undefined) => {
         const data = await getArticlesId(id);
-        setAricleById(data[0]);
+        setAricleById(data);
     }
 
     useEffect(() => {
@@ -66,6 +68,9 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
             formik.setValues(aricleById);
         }
     }, [aricleById])
+
+    const admin: IAdmin = getAdminFromLocal();
+
 
     return (
         <div>
@@ -119,7 +124,7 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
                     <Form.Control
                         type="text"
                         disabled
-                        value={'aa'}
+                        value={type === 'create' ? admin.info.name : aricleById?.user?.info?.name}
                     />
                 </Form.Group>
 
