@@ -1,0 +1,52 @@
+.home{
+    box-sizing: border-box;
+}
+.backgroundCom1{
+    background-image: url("https://1.cms.s81c.com/sites/default/files/2020-06-03/Learn%20Leadspace%203.jpg");
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.borderCom1{
+    background-color: #ffffff33;
+}
+.imgCoverCom2{
+    width: 100%;
+    height: 204px;
+    object-fit: cover;
+}
+.com3{
+    background-color: #f2f5f6;
+}
+.logoCom3{
+    color: #ccc;
+    font-size:64px;
+}
+.imgCoverCom3{
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+}
+.imgCoverCom3member{
+    width: 83px;
+    height: 83px;
+    object-fit: cover;
+}
+.categoryCom3{
+    color: #41d87d;
+    font-weight: bold;
+}
+
+.imgNewsByCate{
+    width: 172.5px;
+    height: 172.5px;
+    object-fit: cover;
+}
+.fontAuthor{
+    color: #bdbdbd;
+    text-transform: uppercase;
+}
+.ads{
+    width: 100%;
+    padding: 25px;
+}
