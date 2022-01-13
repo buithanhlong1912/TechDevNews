@@ -99,12 +99,30 @@ export async function getListCategories() {
     }
 }
 
+export async function getNewsByCategory(id: number,pageIndex:number) {
+    try {
+        const response = await axios.get(`/articles?_sort=dateCreate&_order=desc&categoryId=${id}&_page=${pageIndex}&_limit=5`);
+        return response.data;
+      } catch (error) {
+          console.error(error);
+      }
+}
+
 export async function getArticlesId(id: string | undefined) {
     try {
         if (!id) {
             return false;
         }
         const response = await axios.get('/articles?id=' + id);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export async function getAllAuthor() {
+    try {
+        const response = await axios.get(`/users`);
         return response.data;
     } catch (error) {
         console.error(error);

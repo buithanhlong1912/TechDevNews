@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getArticleByCategoryId, getTop4Article, getTop4ByLike, getTop4ByView } from '../../apis/service';
 import { ArticleModal } from '../../interface';
-import HomePageCom1 from './homePageCom1';
-import HomePageCom2 from './homePageCom2';
-import HomePageCom3 from './homePageCom3';
+import HomePageCom1 from './BannerComponent';
+import HomePageCom2 from './HottestCategoryComponent';
+import HomePageCom3 from './MostViewLikeComponent';
 
 export default function HomePageComponent() {
     const [listTop4, setListTop4] = useState<ArticleModal[]>()
