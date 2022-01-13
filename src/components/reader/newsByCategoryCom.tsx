@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Pagination } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getAllAuthor, getNewsByCategory } from '../../apis/service';
 import { ArticleModal, UserModal } from '../../interface';
 
@@ -9,6 +9,7 @@ export default function NewsByCategoryCom() {
   const [listByCategotyID, setListByCategotyID] = useState<ArticleModal[]>([])
   const [listAuthors, setListAuthors] = useState<UserModal[]>([])
   const [pageIndex, setPageIndex] = useState(1)
+  let navigate = useNavigate();
 
   useEffect(() => {
     getNewsByCategory(Number(param.id), pageIndex).then(data => setListByCategotyID(data))
@@ -34,6 +35,9 @@ export default function NewsByCategoryCom() {
     [listAuthors,pageIndex],
   );
 
+  const handleDetailComponent = (id: number)=>{
+    navigate(`/article/${id}`)
+}
   return (
     <div>
       <p className="h1 text text-center p-5">The Newest News</p>
@@ -43,10 +47,10 @@ export default function NewsByCategoryCom() {
             {listByCategotyID.map((data, index) => (
               <div key={index} className="row py-lg-4">
                 <div className="col-12 col-lg-4 text-center">
-                  <img className="rounded imgNewsByCate" src={data.cover} alt="image" />
+                  <img style={{cursor:"pointer"}} onClick={()=>handleDetailComponent(data.id)} className="rounded imgNewsByCate" src={data.cover} alt="image" />
                 </div>
                 <div className="col-12 col-lg-8">
-                  <p className="h4 pb-2">{data.title}</p>
+                  <p style={{cursor:"pointer"}} onClick={()=>handleDetailComponent(data.id)} className="h4 pb-2">{data.title}</p>
                   <span className="fontAuthor">By <span style={{ color: "black" }}>{getAuthor(data.authorId)} </span> </span>
                   <span className="fontAuthor ml-3"> &nbsp; {formatDate(data.dateCreate)}  </span>
                   <p className="pt-3">{data.description}</p>
