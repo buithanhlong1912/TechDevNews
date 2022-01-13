@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArticleModal } from '../../interface';
 
 interface ICom3 {
@@ -6,6 +7,7 @@ interface ICom3 {
     listByLike: ArticleModal[] | undefined
 }
 export default function HomePageCom3({ listByLike, listByView }: ICom3) {
+    let navigate = useNavigate();
     const getCategory = (id: number) => {
         switch (id) {
             case 1:
@@ -25,6 +27,9 @@ export default function HomePageCom3({ listByLike, listByView }: ICom3) {
                 break;
         }
     }
+    const handleCategory =(id: number)=>{
+        navigate(`/category/${id}`)
+    }
     return (
         <div className="com3 py-5">
             <div className="container ">
@@ -39,41 +44,41 @@ export default function HomePageCom3({ listByLike, listByView }: ICom3) {
                                     <img className="rounded imgCoverCom3" src={listByLike[0].cover} alt="image" />
                                 </div>
                                 <p className="h5 pt-3">{listByLike[0].title}</p>
-                                <span className="categoryCom3">{getCategory(listByLike[0].categoryId)} </span>
+                                <span onClick={()=>handleCategory(listByLike[0].categoryId)} className="categoryCom3">{getCategory(listByLike[0].categoryId)} </span>
                                 <span>{listByLike[0].like}  <i className="far fa-heart"></i></span>
                                 <p className="py-3">{listByLike[0].description}</p>
                                 <hr></hr>
                                 <div className="row">
-                                    <div className="col-2">
+                                    <div className="col-12 text-center col-lg-2">
                                         <img className="rounded imgCoverCom3member" src={listByLike[1].cover} alt="image" />
                                     </div>
-                                    <div className="col-10">
+                                    <div className="col-12 mt-3 mt-lg-0 col-lg-10">
                                         <p className="h5">{listByLike[1].title}</p>
-                                    <span className="categoryCom3">{getCategory(listByLike[1].categoryId)} </span>
-                                    <span>{listByLike[1].like}  <i className="far fa-heart"></i></span>
-                                    </div>   
+                                        <span onClick={()=>handleCategory(listByLike[1].categoryId)} className="categoryCom3">{getCategory(listByLike[1].categoryId)} </span>
+                                        <span>{listByLike[1].like}  <i className="far fa-heart"></i></span>
+                                    </div>
                                 </div>
                                 <hr></hr>
                                 <div className="row">
-                                    <div className="col-2">
+                                    <div className="col-12 text-center col-lg-2">
                                         <img className="rounded imgCoverCom3member" src={listByLike[2].cover} alt="image" />
                                     </div>
-                                    <div className="col-10">
+                                    <div className="col-12 mt-3 mt-lg-0 col-lg-10">
                                         <p className="h5">{listByLike[2].title}</p>
-                                    <span className="categoryCom3">{getCategory(listByLike[2].categoryId)} </span>
-                                    <span>{listByLike[2].like}  <i className="far fa-heart"></i></span>
-                                    </div>   
+                                        <span onClick={()=>handleCategory(listByLike[2].categoryId)} className="categoryCom3">{getCategory(listByLike[2].categoryId)} </span>
+                                        <span>{listByLike[2].like}  <i className="far fa-heart"></i></span>
+                                    </div>
                                 </div>
                                 <hr></hr>
                                 <div className="row">
-                                    <div className="col-2">
+                                    <div className="col-12 text-center col-lg-2">
                                         <img className="rounded imgCoverCom3member" src={listByLike[3].cover} alt="image" />
                                     </div>
-                                    <div className="col-10">
+                                    <div className="col-12 mt-3 mt-lg-0 col-lg-10">
                                         <p className="h5">{listByLike[3].title}</p>
-                                    <span className="categoryCom3">{getCategory(listByLike[3].categoryId)} </span>
-                                    <span>{listByLike[3].like}  <i className="far fa-heart"></i></span>
-                                    </div>   
+                                        <span onClick={()=>handleCategory(listByLike[3].categoryId)} className="categoryCom3">{getCategory(listByLike[3].categoryId)} </span>
+                                        <span>{listByLike[3].like}  <i className="far fa-heart"></i></span>
+                                    </div>
                                 </div>
                             </div>
                         }
@@ -88,41 +93,41 @@ export default function HomePageCom3({ listByLike, listByView }: ICom3) {
                                     <img className="rounded imgCoverCom3" src={listByView[0].cover} alt="image" />
                                 </div>
                                 <p className="h5 pt-3">{listByView[0].title}</p>
-                                <span className="categoryCom3">{getCategory(listByView[0].categoryId)} </span>
+                                <span onClick={()=>handleCategory(listByView[0].categoryId)} className="categoryCom3">{getCategory(listByView[0].categoryId)} </span>
                                 <span>{listByView[0].view}   <i className="fas fa-eye"></i></span>
                                 <p className="py-3">{listByView[0].description}</p>
                                 <hr></hr>
                                 <div className="row">
-                                    <div className="col-2">
+                                    <div className="col-12 text-center col-lg-2">
                                         <img className="rounded imgCoverCom3member" src={listByView[1].cover} alt="image" />
                                     </div>
-                                    <div className="col-10">
+                                    <div className="col-12 mt-3 mt-lg-0 col-lg-10">
                                         <p className="h5">{listByView[1].title}</p>
-                                    <span className="categoryCom3">{getCategory(listByView[1].categoryId)} </span>
-                                    <span>{listByView[1].view}  <i className="fas fa-eye"></i></span>
-                                    </div>   
+                                        <span onClick={()=>handleCategory(listByView[1].categoryId)} className="categoryCom3">{getCategory(listByView[1].categoryId)} </span>
+                                        <span>{listByView[1].view}  <i className="fas fa-eye"></i></span>
+                                    </div>
                                 </div>
                                 <hr></hr>
                                 <div className="row">
-                                    <div className="col-2">
+                                    <div className="col-12 text-center col-lg-2">
                                         <img className="rounded imgCoverCom3member" src={listByView[2].cover} alt="image" />
                                     </div>
-                                    <div className="col-10">
+                                    <div className="col-12 mt-3 mt-lg-0 col-lg-10">
                                         <p className="h5">{listByView[2].title}</p>
-                                    <span className="categoryCom3">{getCategory(listByView[2].categoryId)} </span>
-                                    <span>{listByView[2].view}   <i className="fas fa-eye"></i></span>
-                                    </div>   
+                                        <span onClick={()=>handleCategory(listByView[2].categoryId)} className="categoryCom3">{getCategory(listByView[2].categoryId)} </span>
+                                        <span>{listByView[2].view}   <i className="fas fa-eye"></i></span>
+                                    </div>
                                 </div>
                                 <hr></hr>
                                 <div className="row">
-                                    <div className="col-2">
+                                    <div className="col-12 text-center col-lg-2">
                                         <img className="rounded imgCoverCom3member" src={listByView[3].cover} alt="image" />
                                     </div>
-                                    <div className="col-10">
+                                    <div className="col-12 mt-3 mt-lg-0 col-lg-10">
                                         <p className="h5">{listByView[3].title}</p>
-                                    <span className="categoryCom3">{getCategory(listByView[3].categoryId)} </span>
-                                    <span>{listByView[3].view}  <i className="fas fa-eye"></i></span>
-                                    </div>   
+                                        <span onClick={()=>handleCategory(listByView[3].categoryId)} className="categoryCom3">{getCategory(listByView[3].categoryId)} </span>
+                                        <span>{listByView[3].view}  <i className="fas fa-eye"></i></span>
+                                    </div>
                                 </div>
                             </div>
                         }

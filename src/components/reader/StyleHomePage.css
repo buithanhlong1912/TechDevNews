@@ -36,3 +36,17 @@
     color: #41d87d;
     font-weight: bold;
 }
+
+.imgNewsByCate{
+    width: 172.5px;
+    height: 172.5px;
+    object-fit: cover;
+}
+.fontAuthor{
+    color: #bdbdbd;
+    text-transform: uppercase;
+}
+.ads{
+    width: 100%;
+    padding: 25px;
+}

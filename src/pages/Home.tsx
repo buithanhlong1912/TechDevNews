@@ -1,5 +1,6 @@
 import React from 'react';
-import HomePageComponent from '../components/reader/homePageComponent';
+import HomePageComponent from '../components/reader/HomePageComponent';
+
 
 export default function Home() {
   return (
