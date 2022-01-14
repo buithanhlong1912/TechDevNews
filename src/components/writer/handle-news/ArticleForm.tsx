@@ -13,6 +13,12 @@ interface Props {
     reLoad: () => void
 }
 
+interface IValidateForm {
+    title: string,
+    description: string,
+    cover: string,
+}
+
 export default function ArticleForm({ type, reLoad }: Props): ReactElement {
 
     const navigate = useNavigate();
@@ -20,6 +26,23 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
     const handleChange = (content: string) => {
         setEditorContent(content);
     }
+
+    const admin: IAdmin = getAdminFromLocal();
+
+    const validate = (values: IValidateForm) => {
+        const errors = {} as IValidateForm;
+        if (!values.title) {
+            errors.title = 'You need fill title of article!';
+        }
+        if (!values.description) {
+            errors.description = 'You need fill description of article!';
+        }
+
+        if (!values.cover) {
+            errors.cover = 'You need fill image cover of article!';
+        }
+        return errors;
+    };
 
     const formik = useFormik({
         initialValues: {
@@ -29,13 +52,16 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
             cover: '',
             categoryId: 1,
         },
+        validate,
         onSubmit: async (values) => {
-            const authorId = 1;
+            const authorId = admin.id;
             const article: ArticleModalFormAddDTO = {
                 ...values,
                 content: editorContent,
                 authorId: authorId
             }
+            console.log(article);
+
             if (type === 'create') {
                 await createAricle(article);
             }
@@ -69,12 +95,10 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
         }
     }, [aricleById])
 
-    const admin: IAdmin = getAdminFromLocal();
-
 
     return (
         <div>
-            <h2 className='text-center'>Create New</h2>
+            <h2 className='text-center'>{type === 'create' ? 'Create New' : 'Edit New'}</h2>
             <Form onSubmit={formik.handleSubmit}>
                 <Form.Group className="mb-3">
                     <Form.Label>Title</Form.Label>
@@ -83,8 +107,15 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
                         name="title"
                         id="title"
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         value={formik.values.title}
                     />
+                    {formik.errors.title && formik.touched.title ?
+                        <Form.Text className="mx-2 text-danger">
+                            {formik.errors.title}
+                        </Form.Text>
+                        :
+                        null}
                 </Form.Group>
 
                 <Form.Group className="mb-3">
@@ -93,8 +124,15 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
                         name="description"
                         id="description"
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         value={formik.values.description}
                     />
+                    {formik.errors.description && formik.touched.description ?
+                        <Form.Text className="mx-2 text-danger">
+                            {formik.errors.description}
+                        </Form.Text>
+                        :
+                        null}
                 </Form.Group>
 
                 <Form.Group className="mb-3">
@@ -104,19 +142,31 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
                         name="cover"
                         id="cover"
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         value={formik.values.cover}
                     />
+                    {formik.errors.cover && formik.touched.cover ?
+                        <Form.Text className="mx-2 text-danger">
+                            {formik.errors.cover}
+                        </Form.Text>
+                        :
+                        null}
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                     <Form.Label>Catagory</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="categoryId"
-                        id="categoryId"
-                        onChange={formik.handleChange}
+                    <Form.Select
+                        name='categoryId'
+                        className="mb-3"
                         value={formik.values.categoryId}
-                    />
+                        onChange={formik.handleChange}
+                    >
+                        <option value="1">Lập trình</option>
+                        <option value="2">UI/UX</option>
+                        <option value="3">Block Chain</option>
+                        <option value="4">Mobile</option>
+                        <option value="5">Internet</option>
+                    </Form.Select>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
@@ -158,7 +208,7 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
                         }}
                     />
                 </Form.Group>
-                <Button type="submit" className='my-2'>Post</Button>
+                <Button type="submit" className='my-2'>{type === 'create' ? "Post" : "Update"}</Button>
             </Form>
         </div>
     )
