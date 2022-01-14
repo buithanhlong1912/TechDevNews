@@ -34,7 +34,7 @@ export default function AdminDashboard() {
     <Auth orRedirectTo="/admin/login">
       <Container>
         <AdminHeader />
-        <Container className="mt-2">
+        <div className="mt-2">
           <Routes>
             <Route
               path="/"
@@ -56,7 +56,7 @@ export default function AdminDashboard() {
               element={<ArticleForm type={"edit"} reLoad={_handleLoad} />}
             />
           </Routes>
-        </Container>
+        </div>
       </Container>
     </Auth>
   );
