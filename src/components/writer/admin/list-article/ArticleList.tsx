@@ -6,22 +6,24 @@ import { deleteArticlesById } from "../../../../apis/service";
 import { ArticleModal } from "../../../../interface";
 
 interface Props {
-  listArticle: ArticleModal[]
-  reLoad: () => void
+  listArticle: ArticleModal[];
+  reLoad: () => void;
 }
 
-export default function ArticleList({ listArticle = [], reLoad }: Props): ReactElement {
-
+export default function ArticleList({
+  listArticle = [],
+  reLoad,
+}: Props): ReactElement {
   const navigate = useNavigate();
   const handleDelete = async (id: number) => {
-    if (window.confirm('Are you sure to delete this article') === true) {
+    if (window.confirm("Are you sure to delete this article") === true) {
       await deleteArticlesById(id);
       reLoad();
     }
-  }
+  };
 
   return (
-    < >
+    <>
       <div className="list-article">
         {listArticle.length !== 0 ? (
           <Table striped bordered hover>
@@ -38,10 +40,26 @@ export default function ArticleList({ listArticle = [], reLoad }: Props): ReactE
                 <tr key={article.id}>
                   <td>{i}</td>
                   <td>{article.title}</td>
-                  <td>{ moment(article.dateCreate).format('DD/MM/YYYY, h:mm:ss a')}</td>
+                  <td>
+                    {moment(article.dateCreate).format("DD/MM/YYYY, h:mm:ss a")}
+                  </td>
                   <td className="d-flex justify-content-between">
-                    <Button onClick={() => { navigate(`/admin/edit-new/${article.id}`) }} variant="success">Edit</Button>
-                    <Button variant="danger" onClick={() => { handleDelete(article.id) }}>Delete</Button>
+                    <Button
+                      onClick={() => {
+                        navigate(`/admin/edit-new/${article.id}`);
+                      }}
+                      variant="success"
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => {
+                        handleDelete(article.id);
+                      }}
+                    >
+                      Delete
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -51,8 +69,14 @@ export default function ArticleList({ listArticle = [], reLoad }: Props): ReactE
           <div>You don't have any article</div>
         )}
       </div>
-      <div className="my-2" >
-        <Button onClick={() => { navigate('/admin/create-new') }}>Create new</Button>
+      <div className="my-2">
+        <Button
+          onClick={() => {
+            navigate("/admin/create-new");
+          }}
+        >
+          Create new
+        </Button>
       </div>
     </>
   );
