@@ -17,7 +17,8 @@ import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [menuTitle, setTitle] = useState([]);
-  const [showLogin, setShowLogin] = useState<boolean>(true);
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [show, setShow] = useState<boolean>(false);
 
   const Navigate = useNavigate();
   useEffect(() => {
@@ -27,7 +28,7 @@ function Header() {
   }, []);
 
   const handleCategory = (id: number) => {
-    Navigate(`/category/${id}`);
+    Navigate(`/home/category/${id}`);
   };
 
   return (
@@ -58,10 +59,15 @@ function Header() {
               </Button>
             </Form>
             &nbsp;&nbsp;&nbsp;
-            {/* <Nav.Link href="#deets"><i className="far fa-user-circle"></i></Nav.Link> Nếu chưa đăng nhập thì icon này*/}
-            <NavDropdown title="Hi, User" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
-            </NavDropdown>
+            {!loggedIn ? (
+              <Nav.Link onClick={() => setShow(true)}>
+                <i className="far fa-user-circle"></i>
+              </Nav.Link>
+            ) : (
+              <NavDropdown title="Hi, User" id="collasible-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
+              </NavDropdown>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

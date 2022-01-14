@@ -3,7 +3,8 @@ import { useState } from "react";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 
 const Login = () => {
-  const clientId = "";
+  const clientId =
+    "421005288141-79gs72nt5s3divhvnm8fritsmjl2gnol.apps.googleusercontent.com";
 
   // const responseGoogle = (response: any) => {
   //   console.log(response);
