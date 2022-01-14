@@ -191,3 +191,12 @@ export async function deleteArticlesById(id: number) {
     console.error(error);
   }
 }
+
+export async function getTop5(title: string) {
+  try {
+    const response = await axios.get(`/categories?title_like=${title}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}

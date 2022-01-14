@@ -3,6 +3,7 @@ import { Pagination } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getAllAuthor, getNewsByCategory } from '../../apis/service';
 import { ArticleModal, UserModal } from '../../interface';
+import Header from '../Header/Header';
 
 export default function NewsByCategoryCom() {
   const param = useParams()
@@ -10,10 +11,14 @@ export default function NewsByCategoryCom() {
   const [listAuthors, setListAuthors] = useState<UserModal[]>([])
   const [pageIndex, setPageIndex] = useState(1)
   let navigate = useNavigate();
+  const { id } = useParams();
+
 
   useEffect(() => {
-    getNewsByCategory(Number(param.id), pageIndex).then(data => setListByCategotyID(data))
-  }, [pageIndex]);
+    getNewsByCategory(Number(param.id), pageIndex).then((data) =>
+      setListByCategotyID(data)
+    );
+  }, [pageIndex, id]);
 
   useEffect(() => {
     getAllAuthor().then(data => setListAuthors(data))
@@ -40,6 +45,7 @@ export default function NewsByCategoryCom() {
 }
   return (
     <div>
+      <Header/>
       <p className="h1 text text-center p-5">The Newest News</p>
       <div className="container">
         <div className="row">

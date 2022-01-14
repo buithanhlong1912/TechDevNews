@@ -4,6 +4,7 @@ import {
   getArticlesById,
   getAuthors,
   getArticlesByAuthorId,
+  getTop5,
 } from "../../apis/service";
 import { ArticleModal } from "../../interface";
 import { useNavigate, useParams } from "react-router-dom";
@@ -29,8 +30,8 @@ function ArticleDetails() {
   const [arrRelated, setRelated] = useState<ArticleModal[]>([]);
   let navigate = useNavigate();
   const handleDetailComponent = (id: number) => {
-    navigate(`/article/${id}`)
-  }
+    navigate(`/article/${id}`);
+  };
 
   let params = useParams();
   const id = !!params.id ? params.id : "1";
@@ -41,6 +42,9 @@ function ArticleDetails() {
     });
     getAuthors().then((data) => {
       setUsers(data);
+    });
+    getTop5("Lap trinh").then((data) => {
+      console.log(data);
     });
   }, [id]);
 
@@ -100,13 +104,22 @@ function ArticleDetails() {
         break;
     }
   };
+  const handleNavigateHome = () => {
+    navigate(`/home`);
+  };
   return (
     <div className="mb-5">
       <div className={"container"}>
         <div>
-          <p className="m-0 py-2">
+          <p className={"m-0 py-2"}>
             {" "}
-            Home / {article && getCategory(article.categoryId)}
+            <span
+              className={styles.homeNav}
+              onClick={() => handleNavigateHome()}
+            >
+              Home
+            </span>
+            / {article && getCategory(article.categoryId)}
           </p>
         </div>
       </div>
@@ -214,13 +227,19 @@ function ArticleDetails() {
                             key={index}
                             style={{ cursor: "pointer" }}
                           >
-                            <img onClick={() => handleDetailComponent(item.id)}
+                            <img
+                              onClick={() => handleDetailComponent(item.id)}
                               src={item.cover}
                               className={
                                 "rounded mb-1" + " " + styles.coverAvatar
                               }
                             />
-                            <p onClick={() => handleDetailComponent(item.id)} className="h6 text-center">{item.title}</p>
+                            <p
+                              onClick={() => handleDetailComponent(item.id)}
+                              className="h6 text-center"
+                            >
+                              {item.title}
+                            </p>
                           </div>
                         ))}
                       </div>
@@ -235,15 +254,25 @@ function ArticleDetails() {
                             className={styles.Avatar}
                           />
                           <h3>{author && author.info.name}</h3>
-                          <div className={"container" + ' ' + styles.titleInfor}>
+                          <div
+                            className={"container" + " " + styles.titleInfor}
+                          >
                             <p>{author && author.info.about}</p>
                             <div className="row">
-                              <div className={"col-12" + ' ' + styles.inforFollow}>
+                              <div
+                                className={"col-12" + " " + styles.inforFollow}
+                              >
                                 <span>Follow Me:</span>
                                 <ul className={styles.social}>
-                                  <li className={styles.contact}>Twitter &nbsp;|</li>
-                                  <li className={styles.contact}>Facebook &nbsp;|</li>
-                                  <li className={styles.contact}>Instagram &nbsp;|</li>
+                                  <li className={styles.contact}>
+                                    Twitter &nbsp;|
+                                  </li>
+                                  <li className={styles.contact}>
+                                    Facebook &nbsp;|
+                                  </li>
+                                  <li className={styles.contact}>
+                                    Instagram &nbsp;|
+                                  </li>
                                 </ul>
                               </div>
                             </div>

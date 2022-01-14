@@ -13,19 +13,21 @@ import {
   Navbar,
   NavDropdown,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
-  const [statusSearch, setStatus] = useState(false);
   const [menuTitle, setTitle] = useState([]);
 
-  function handleClickSearch() {
-    setStatus(!statusSearch);
-  }
+  const Navigate = useNavigate();
   useEffect(() => {
     getCategoies().then((data) => {
       setTitle(data);
     });
   }, []);
+
+  const handleCategory = (id: number) => {
+    Navigate(`/category/${id}`);
+  };
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -36,11 +38,11 @@ function Header() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="">Programming</Nav.Link>
-            <Nav.Link href="">UI/UX</Nav.Link>
-            <Nav.Link href="">Mobile</Nav.Link>
-            <Nav.Link href="">Internet</Nav.Link>
-            <Nav.Link href="">Block Chain</Nav.Link>
+            {menuTitle?.map((item: any, index: number) => (
+              <Nav.Link onClick={() => handleCategory(item.id)}>
+                {item.title}
+              </Nav.Link>
+            ))}
           </Nav>
           <Nav>
             <Form className="d-flex mr-3">
