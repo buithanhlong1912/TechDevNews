@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [menuTitle, setTitle] = useState([]);
+  const [showLogin, setShowLogin] = useState<boolean>(true);
 
   const Navigate = useNavigate();
   useEffect(() => {
