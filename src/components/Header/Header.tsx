@@ -13,6 +13,7 @@ import {
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
+import { getUserFromLocal } from "../../utilities";
 
 function Header() {
   const [menuTitle, setTitle] = useState([]);
@@ -26,6 +27,8 @@ function Header() {
   const typingTimeoutRef = useRef(0);
   const clientId =
     "421005288141-79gs72nt5s3divhvnm8fritsmjl2gnol.apps.googleusercontent.com";
+
+  const userName = getUserFromLocal();
 
   const onLoginSuccess = (res: any) => {
     localStorage.setItem("user", JSON.stringify(res.profileObj));
@@ -47,6 +50,8 @@ function Header() {
       imageUrl: "",
       name: "",
     });
+    setLoggedIn(false);
+    localStorage.removeItem("user");
   };
 
   const Navigate = useNavigate();
@@ -96,6 +101,7 @@ function Header() {
             onClick={handleHome}
             src={img}
             className="logoApp"
+            alt="logoApp"
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -124,7 +130,24 @@ function Header() {
               </Button>
             </Form>
             &nbsp;&nbsp;&nbsp;
-            {!loggedIn ? (
+            {loggedIn || localStorage.getItem("user") ? (
+              <NavDropdown
+                title={`${userName.name}`}
+                id="collasible-nav-dropdown"
+              >
+                {/* <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item> */}
+                <GoogleLogout
+                  clientId={clientId}
+                  render={(renderProps) => (
+                    <NavDropdown.Item onClick={renderProps.onClick}>
+                      <i className="fab fa-google"></i> Logout by Google
+                    </NavDropdown.Item>
+                  )}
+                  buttonText="Logout"
+                  onLogoutSuccess={onLogout}
+                ></GoogleLogout>
+              </NavDropdown>
+            ) : (
               <GoogleLogin
                 clientId={clientId}
                 render={(renderProps) => (
@@ -137,15 +160,6 @@ function Header() {
                 onFailure={onFailureSuccess}
                 cookiePolicy={"single_host_origin"}
               />
-            ) : (
-              <NavDropdown title={`${user.name}`} id="collasible-nav-dropdown">
-                {/* <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item> */}
-                <GoogleLogout
-                  clientId={clientId}
-                  buttonText="Logout"
-                  onLogoutSuccess={onLogout}
-                ></GoogleLogout>
-              </NavDropdown>
             )}
           </Nav>
         </Navbar.Collapse>
