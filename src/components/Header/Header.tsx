@@ -39,7 +39,7 @@ function Header() {
     console.log("Login Failure", res.profileObj);
   };
 
-  const onLogout = (res: any) => {
+  const onLogout = () => {
     setUser({
       email: "",
       imageUrl: "",
