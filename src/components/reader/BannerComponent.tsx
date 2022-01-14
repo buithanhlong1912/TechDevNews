@@ -59,6 +59,7 @@ export default function HomePageCom1({ listTop4 }: ITop4) {
         )}
         {listTop4 && (
           <div className="row px-5 py-4 borderCom1 rounded-top">
+            {console.log(listTop4.splice(0, 1))}
             <div className="col-12 col-md-4 px-4">
               <p
                 style={{ cursor: "pointer" }}
