@@ -192,9 +192,11 @@ export async function deleteArticlesById(id: number) {
   }
 }
 
-export async function getTop5(title: string) {
+export async function getSearch(title: string, pageIndex: number) {
   try {
-    const response = await axios.get(`/categories?title_like=${title}`);
+    const response = await axios.get(
+      `/articles?_sort=dateCreate&_order=desc&title_like=${title}&_page=${pageIndex}&_limit=5`
+    );
     return response.data;
   } catch (error) {
     console.error(error);
@@ -212,9 +214,11 @@ export async function editViewArticlesById(id: number) {
 
 export async function increasViewByArticleId(id: number) {
   try {
-    const articleById = await axios.get("/articles/" + id);
+    const articleById = await axios.get("/articles?id=" + id);
+  
     const currentView = articleById.data[0].view;
     const response = await axios.patch("/articles/" + id, { view: currentView + 1 });
+    
     return response.data;
   } catch (error) {
     console.error(error);

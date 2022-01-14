@@ -42,9 +42,11 @@ export default function NewsByCategoryCom() {
     [listAuthors, pageIndex]
   );
 
-  const handleDetailComponent = (id: number) => {
-    navigate(`/home/article/${id}`);
-  };
+  const handleDetailComponent = (id: number)=>{
+    increasViewByArticleId(id)
+    navigate(`/home/article/${id}`)
+  }
+
   return (
     <div>
       <p className="h1 text text-center p-5">The Newest News</p>

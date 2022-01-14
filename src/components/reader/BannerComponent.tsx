@@ -2,7 +2,7 @@ import { ArticleModal } from "../../interface";
 import "./StyleHomePage.css";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import { editArticlesById } from "../../apis/service";
+import { editArticlesById, increasViewByArticleId } from "../../apis/service";
 interface ITop4 {
   listTop4: ArticleModal[] | undefined;
 }
@@ -27,8 +27,9 @@ export default function HomePageCom1({ listTop4 }: ITop4) {
     navigate(`/home/category/${id}`);
   };
   const handleDetailComponent = (id: number) => {
-    
+    increasViewByArticleId(id)
     navigate(`/home/article/${id}`);
+    
   };
 
   return (

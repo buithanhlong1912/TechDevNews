@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, ChangeEvent } from "react";
 import "./Header.css";
-import { getCategoies } from "../../apis/service";
+import { getCategoies, getSearch } from "../../apis/service";
 import img from "../../logo/techdevnews_logo.png";
 import {
   Button,
@@ -16,12 +16,15 @@ import { GoogleLogin, GoogleLogout } from "react-google-login";
 
 function Header() {
   const [menuTitle, setTitle] = useState([]);
+  const [valueInput, setValue] = useState("");
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [user, setUser] = useState({
     email: "",
     imageUrl: "",
     name: "",
   });
+  const [show, setShow] = useState<boolean>(false);
+  const typingTimeoutRef = useRef(0);
   const clientId =
     "421005288141-79gs72nt5s3divhvnm8fritsmjl2gnol.apps.googleusercontent.com";
 
@@ -62,6 +65,23 @@ function Header() {
     Navigate(`/home`);
   };
 
+  const handleChangeSearch = (event: ChangeEvent<any>): void => {
+    const value = event.target.value;
+    setValue(value);
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+    typingTimeoutRef.current = window.setTimeout(() => {
+      setValue(value);
+    }, 400);
+  };
+
+  const handleClickSearch = () => {
+    if (valueInput) {
+      Navigate(`article/search/${valueInput}`);
+    }
+  };
+
   return (
     <Navbar
       collapseOnSelect
@@ -95,8 +115,12 @@ function Header() {
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+                onChange={(event) => handleChangeSearch(event)}
               />
-              <Button variant="btn btn-outline-light">
+              <Button
+                variant="btn btn-outline-light"
+                onClick={handleClickSearch}
+              >
                 <i className="fas fa-search"></i>
               </Button>
             </Form>
