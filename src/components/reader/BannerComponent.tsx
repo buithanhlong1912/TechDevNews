@@ -31,7 +31,7 @@ export default function HomePageCom1({ listTop4 }: ITop4) {
     navigate(`/category/${id}`);
   };
   const handleDetailComponent = (id: number) => {
-    navigate(`/article/${id}`);
+    navigate(`/home/article/${id}`);
   };
   return (
     <div className="backgroundCom1 text-white">

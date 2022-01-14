@@ -42,7 +42,9 @@ export default function AdminDashboard() {
             />
             <Route
               path="/manage-article"
-              element={<ArticleList listArticle={listArticle} reLoad={_handleLoad} />}
+              element={
+                <ArticleList listArticle={listArticle} reLoad={_handleLoad} />
+              }
             />
             <Route path="/profile" element={<AdminProfile />} />
             <Route

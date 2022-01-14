@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./Header.css";
 import { getCategoies } from "../../apis/service";
 import img from "../../logo/techdevnews_logo.png";
+import logo from "../../logo/techdevnews_logo.svg";
+
 import {
   Button,
   Container,
@@ -30,8 +32,8 @@ function Header() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand>
-          <img src={img} className="logoApp" />
+        <Navbar.Brand href="">
+          <img src={logo} className="logoApp" width="100" height="100" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
