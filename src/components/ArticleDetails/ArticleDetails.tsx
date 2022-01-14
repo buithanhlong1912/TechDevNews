@@ -29,7 +29,7 @@ function ArticleDetails() {
   const [arrRelated, setRelated] = useState<ArticleModal[]>([]);
   let navigate = useNavigate();
   const handleDetailComponent = (id: number) => {
-    navigate(`/article/${id}`);
+    navigate(`/home/article/${id}`);
   };
 
   let params = useParams();
@@ -285,7 +285,8 @@ function ArticleDetails() {
                 src="https://nb-default.wpthms.com/wp-content/plugins/wpthms-newsbeat-demo-ads/ads/streetstyle/300x250@2x.jpg"
                 width="400px"
                 height="600px"
-                style={{ position: "fixed", objectFit: "contain" }}
+                style={{ objectFit: "cover" }}
+                className="sticky-top p-5"
               />
             </div>
           </div>

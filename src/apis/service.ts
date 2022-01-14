@@ -203,3 +203,24 @@ export async function getSearch(title: string, pageIndex: number) {
   }
 }
 
+export async function editViewArticlesById(id: number) {
+  try {
+    const response = await axios.put("/articles/" + id);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function increasViewByArticleId(id: number) {
+  try {
+    const articleById = await axios.get("/articles?id=" + id);
+  
+    const currentView = articleById.data[0].view;
+    const response = await axios.patch("/articles/" + id, { view: currentView + 1 });
+    
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
