@@ -6,7 +6,7 @@ import {
   getArticlesByAuthorId,
 } from "../../apis/service";
 import { ArticleModal } from "../../interface";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface IUser {
   id: number;
@@ -27,6 +27,10 @@ function ArticleDetails() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [author, setAuthor] = useState<IUser>();
   const [arrRelated, setRelated] = useState<ArticleModal[]>([]);
+  let navigate = useNavigate();
+  const handleDetailComponent = (id: number) => {
+    navigate(`/article/${id}`)
+  }
 
   let params = useParams();
   const id = !!params.id ? params.id : "1";
@@ -210,13 +214,13 @@ function ArticleDetails() {
                             key={index}
                             style={{ cursor: "pointer" }}
                           >
-                            <img
+                            <img onClick={() => handleDetailComponent(item.id)}
                               src={item.cover}
                               className={
                                 "rounded mb-1" + " " + styles.coverAvatar
                               }
                             />
-                            <p className="h6 text-center">{item.title}</p>
+                            <p onClick={() => handleDetailComponent(item.id)} className="h6 text-center">{item.title}</p>
                           </div>
                         ))}
                       </div>
@@ -231,18 +235,18 @@ function ArticleDetails() {
                             className={styles.Avatar}
                           />
                           <h3>{author && author.info.name}</h3>
-                          <div className={"container"+' '+styles.titleInfor}>
+                          <div className={"container" + ' ' + styles.titleInfor}>
                             <p>{author && author.info.about}</p>
                             <div className="row">
-                               <div className={"col-12"+' '+styles.inforFollow}>
-                              <span>Follow Me:</span>
-                              <ul className={styles.social}>
-                                <li className={styles.contact}>Twitter &nbsp;|</li>
-                                <li className={styles.contact}>Facebook &nbsp;|</li>
-                                <li className={styles.contact}>Instagram &nbsp;|</li>
-                              </ul>
+                              <div className={"col-12" + ' ' + styles.inforFollow}>
+                                <span>Follow Me:</span>
+                                <ul className={styles.social}>
+                                  <li className={styles.contact}>Twitter &nbsp;|</li>
+                                  <li className={styles.contact}>Facebook &nbsp;|</li>
+                                  <li className={styles.contact}>Instagram &nbsp;|</li>
+                                </ul>
+                              </div>
                             </div>
-                           </div>
                           </div>
                         </div>
                       </div>
