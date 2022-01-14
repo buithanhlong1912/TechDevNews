@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Pagination } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getAllAuthor, getNewsByCategory } from '../../apis/service';
+import { getAllAuthor, getNewsByCategory, increasViewByArticleId } from '../../apis/service';
 import { ArticleModal, UserModal } from '../../interface';
-import Header from '../Header/Header';
+
 
 export default function NewsByCategoryCom() {
   const param = useParams()
@@ -41,6 +41,7 @@ export default function NewsByCategoryCom() {
   );
 
   const handleDetailComponent = (id: number)=>{
+    increasViewByArticleId(id)
     navigate(`/home/article/${id}`)
 }
   return (
