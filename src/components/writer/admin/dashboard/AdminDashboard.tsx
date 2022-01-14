@@ -3,7 +3,6 @@ import { Container } from "react-bootstrap";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { getArticles, getArticlesByAuthorId } from "../../../../apis/service";
 import Auth from "../../../../guard/AuthGuard";
-import AuthGuard from "../../../../guard/AuthGuard";
 import { ArticleModal, IAdmin } from "../../../../interface";
 import { getAdminFromLocal } from "../../../../utilities";
 import ArticleForm from "../../handle-news/ArticleForm";
