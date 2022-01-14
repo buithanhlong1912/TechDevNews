@@ -212,9 +212,11 @@ export async function editViewArticlesById(id: number) {
 
 export async function increasViewByArticleId(id: number) {
   try {
-    const articleById = await axios.get("/articles/" + id);
+    const articleById = await axios.get("/articles?id=" + id);
+  
     const currentView = articleById.data[0].view;
     const response = await axios.patch("/articles/" + id, { view: currentView + 1 });
+    
     return response.data;
   } catch (error) {
     console.error(error);
