@@ -9,7 +9,7 @@ import {
 import Home from "./pages/Home";
 import AdminDashboard from "./components/writer/admin/dashboard/AdminDashboard";
 import AdminLogin from "./pages/LoginAdmin/LoginAdmin";
-import NewsByCategoryCom from "./components/reader/newsByCategoryCom";
+import NewsByCategoryCom from "./components/reader/NewsByCategoryCom";
 import ArticleDetails from "./components/ArticleDetails/ArticleDetails";
 
 function App() {

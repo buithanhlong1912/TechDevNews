@@ -23,7 +23,6 @@ function Header() {
     imageUrl: "",
     name: "",
   });
-  const [show, setShow] = useState<boolean>(false);
   const typingTimeoutRef = useRef(0);
   const clientId =
     "421005288141-79gs72nt5s3divhvnm8fritsmjl2gnol.apps.googleusercontent.com";
