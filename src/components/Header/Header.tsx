@@ -30,12 +30,14 @@ function Header() {
   const handleCategory = (id: number) => {
     Navigate(`/home/category/${id}`);
   };
-
+  const handleHome = ()=>{
+    Navigate(`/home`)
+}
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="sticky-top">
       <Container>
         <Navbar.Brand href="">
-          <img src={logo} className="logoApp" width="100" height="100" />
+          <img style={{cursor:"pointer"}} onClick={handleHome} src={logo} className="logoApp" width="100" height="100" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
