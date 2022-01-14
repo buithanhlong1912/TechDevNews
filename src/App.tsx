@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -12,7 +12,6 @@ import AdminLogin from "./pages/LoginAdmin/LoginAdmin";
 import NewsByCategoryCom from './components/reader/NewsByCategoryCom';
 import ArticleDetails from './components/ArticleDetails/ArticleDetails';
 
-
 function App() {
   return (
     <Router>
@@ -24,7 +23,7 @@ function App() {
         <Route path="/category/:id" element={<NewsByCategoryCom />} />
         <Route path="/article/:id" element={<ArticleDetails />} />
       </Routes>
-    </Router >
+    </Router>
   );
 }
 
