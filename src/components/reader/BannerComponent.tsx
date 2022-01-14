@@ -12,19 +12,14 @@ export default function HomePageCom1({ listTop4 }: ITop4) {
     switch (id) {
       case 1:
         return "Lập trình";
-        break;
       case 2:
         return "UI/UX";
-        break;
       case 3:
         return "Block Chain";
-        break;
       case 4:
         return "Mobile";
-        break;
       case 5:
         return "Internet";
-        break;
     }
   };
   const handleCategory = (id: number) => {
@@ -59,7 +54,6 @@ export default function HomePageCom1({ listTop4 }: ITop4) {
         )}
         {listTop4 && (
           <div className="row px-5 py-4 borderCom1 rounded-top">
-            {console.log(listTop4.splice(0, 1))}
             <div className="col-12 col-md-4 px-4">
               <p
                 style={{ cursor: "pointer" }}
