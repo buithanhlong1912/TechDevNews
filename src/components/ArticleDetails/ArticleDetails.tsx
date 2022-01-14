@@ -4,7 +4,6 @@ import {
   getArticlesById,
   getAuthors,
   getArticlesByAuthorId,
-  getTop5,
 } from "../../apis/service";
 import { ArticleModal } from "../../interface";
 import { useNavigate, useParams } from "react-router-dom";
@@ -42,9 +41,6 @@ function ArticleDetails() {
     });
     getAuthors().then((data) => {
       setUsers(data);
-    });
-    getTop5("Lap trinh").then((data) => {
-      console.log(data);
     });
   }, [id]);
 

@@ -192,11 +192,14 @@ export async function deleteArticlesById(id: number) {
   }
 }
 
-export async function getTop5(title: string) {
+export async function getSearch(title: string, pageIndex: number) {
   try {
-    const response = await axios.get(`/categories?title_like=${title}`);
+    const response = await axios.get(
+      `/articles?_sort=dateCreate&_order=desc&title_like=${title}&_page=${pageIndex}&_limit=5`
+    );
     return response.data;
   } catch (error) {
     console.error(error);
   }
 }
+
