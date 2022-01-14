@@ -38,7 +38,7 @@ export default function ArticleList({
             <tbody>
               {listArticle.map((article, i) => (
                 <tr key={article.id}>
-                  <td>{i}</td>
+                  <td>{i+1}</td>
                   <td>{article.title}</td>
                   <td>
                     {moment(article.dateCreate).format("DD/MM/YYYY, h:mm:ss a")}
@@ -66,7 +66,7 @@ export default function ArticleList({
             </tbody>
           </Table>
         ) : (
-          <div>You don't have any article</div>
+          <div></div>
         )}
       </div>
       <div className="my-2">
