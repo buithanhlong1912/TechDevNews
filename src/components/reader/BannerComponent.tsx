@@ -2,6 +2,7 @@ import { ArticleModal } from "../../interface";
 import "./StyleHomePage.css";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import { editArticlesById } from "../../apis/service";
 interface ITop4 {
   listTop4: ArticleModal[] | undefined;
 }
@@ -28,11 +29,13 @@ export default function HomePageCom1({ listTop4 }: ITop4) {
     }
   };
   const handleCategory = (id: number) => {
-    navigate(`/category/${id}`);
+    navigate(`/home/category/${id}`);
   };
   const handleDetailComponent = (id: number) => {
+    
     navigate(`/home/article/${id}`);
   };
+
   return (
     <div className="backgroundCom1 text-white">
       <div className="container ">

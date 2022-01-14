@@ -41,11 +41,10 @@ export default function NewsByCategoryCom() {
   );
 
   const handleDetailComponent = (id: number)=>{
-    navigate(`/article/${id}`)
+    navigate(`/home/article/${id}`)
 }
   return (
     <div>
-      <Header/>
       <p className="h1 text text-center p-5">The Newest News</p>
       <div className="container">
         <div className="row">

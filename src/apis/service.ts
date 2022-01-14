@@ -200,3 +200,12 @@ export async function getTop5(title: string) {
     console.error(error);
   }
 }
+
+export async function editViewArticlesById(id: number) {
+  try {
+    const response = await axios.put("/articles/" + id);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
