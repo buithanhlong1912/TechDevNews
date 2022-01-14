@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { editArticlesById } from '../../apis/service';
+import { editArticlesById, increasViewByArticleId } from '../../apis/service';
 import { ArticleModal } from '../../interface';
 
 interface ICom3 {
@@ -32,7 +32,7 @@ export default function HomePageCom3({ listByLike, listByView }: ICom3) {
         navigate(`/home/category/${id}`)
     }
     const handleDetailComponent = (id: number) => {
-    
+        increasViewByArticleId(id)
         navigate(`/home/article/${id}`)
     }
     return (
