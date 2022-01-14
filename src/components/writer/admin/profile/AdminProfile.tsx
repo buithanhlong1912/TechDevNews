@@ -1,13 +1,31 @@
-import React, { ReactElement } from 'react'
+import { useFormik } from "formik";
+import React, { ReactElement, useEffect, useMemo } from "react";
+import { Form } from "react-bootstrap";
+import { getAdminFromLocal } from "../../../../utilities";
 
-interface Props {
-    
-}
+export default function AdminProfile(): ReactElement {
+  const admin = useMemo(() => getAdminFromLocal(), []);
 
-export default function AdminProfile({  }: Props): ReactElement {
-    return (
-        <div>
-            profile here
-        </div>
-    )
+  useEffect(() => {
+    getAdminFromLocal();
+  }, []);
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      about: "",
+      avt: "",
+      cover: "",
+      categoryId: 1,
+    },
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+
+  return (
+    <>
+      <Form></Form>
+    </>
+  );
 }
