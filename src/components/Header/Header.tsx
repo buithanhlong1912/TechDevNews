@@ -23,7 +23,6 @@ function Header() {
     imageUrl: "",
     name: "",
   });
-  const [show, setShow] = useState<boolean>(false);
   const typingTimeoutRef = useRef(0);
   const clientId =
     "421005288141-79gs72nt5s3divhvnm8fritsmjl2gnol.apps.googleusercontent.com";
@@ -42,7 +41,7 @@ function Header() {
     console.log("Login Failure", res.profileObj);
   };
 
-  const onLogout = (res: any) => {
+  const onLogout = () => {
     setUser({
       email: "",
       imageUrl: "",
