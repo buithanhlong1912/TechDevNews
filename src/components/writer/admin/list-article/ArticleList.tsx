@@ -18,7 +18,7 @@ interface Props {
   reLoad: () => void;
   nextPage: () => void;
   prePage: () => void;
-  pageIndex: number
+  pageIndex: number;
 }
 
 export default function ArticleList({
@@ -26,7 +26,7 @@ export default function ArticleList({
   reLoad,
   nextPage,
   prePage,
-  pageIndex
+  pageIndex,
 }: Props): ReactElement {
   const navigate = useNavigate();
   const handleDelete = async (id: number) => {
@@ -35,7 +35,7 @@ export default function ArticleList({
       reLoad();
     }
   };
-  
+
   return (
     <div className="">
       <h2 className="text-center">List Article</h2>
@@ -85,26 +85,37 @@ export default function ArticleList({
         ) : (
           <div></div>
         )}
-        <div>
+        <div className="d-flex justify-content-between align-items-center">
           <Pagination>
             <Pagination.Prev disabled={pageIndex === 1} onClick={prePage} />
-            <Pagination.Next disabled={!listArticle.next as boolean} onClick={nextPage} />
+            <Pagination.Next
+              disabled={!listArticle.next as boolean}
+              onClick={nextPage}
+            />
           </Pagination>
+          {/* <button
+            onClick={() => {
+              navigate("/admin/create-new");
+            }}
+            className={`${style.add}`}
+          >
+            +
+          </button> */}
+          <OverlayTrigger
+            placement="left"
+            overlay={<Tooltip id={`tooltip-left`}>Add new acticle</Tooltip>}
+          >
+            <button
+              onClick={() => {
+                navigate("/admin/create-new");
+              }}
+              className={`${style.add}`}
+            >
+              +
+            </button>
+          </OverlayTrigger>
         </div>
       </div>
-      <OverlayTrigger
-        placement="left"
-        overlay={<Tooltip id={`tooltip-left`}>Add new acticle</Tooltip>}
-      >
-        <button
-          onClick={() => {
-            navigate("/admin/create-new");
-          }}
-          className={`position-absolute ${style.add}`}
-        >
-          +
-        </button>
-      </OverlayTrigger>
     </div>
   );
 }
