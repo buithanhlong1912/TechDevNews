@@ -3,8 +3,8 @@ import { Container } from "react-bootstrap";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { getArticles, getArticlesByAuthorId } from "../../../../apis/service";
 import Auth from "../../../../guard/AuthGuard";
-import AuthGuard from "../../../../guard/AuthGuard";
-import { ArticleModal } from "../../../../interface";
+import { ArticleModal, IAdmin } from "../../../../interface";
+import { getAdminFromLocal } from "../../../../utilities";
 import ArticleForm from "../../handle-news/ArticleForm";
 import AdminHeader from "../admin-header/AdminHeader";
 import ArticleList from "../list-article/ArticleList";
@@ -13,6 +13,8 @@ import AdminProfile from "../profile/AdminProfile";
 export default function AdminDashboard() {
   const [listArticle, setListArticle] = useState<ArticleModal[]>([]);
   const [load, setLoad] = useState(true);
+
+  const admin: IAdmin = getAdminFromLocal();
 
   const getArticleFromApis = async () => {
     const listArticleFromApis: ArticleModal[] = await getArticles();
@@ -31,10 +33,9 @@ export default function AdminDashboard() {
   };
 
   return (
-    <Auth orRedirectTo="/admin/login">
-      <Container>
-        <AdminHeader />
-        <div className="mt-2">
+    <>
+      <div className="mt-2">
+        <Container>
           <Routes>
             <Route
               path="/"
@@ -46,7 +47,10 @@ export default function AdminDashboard() {
                 <ArticleList listArticle={listArticle} reLoad={_handleLoad} />
               }
             />
-            <Route path="/profile" element={<AdminProfile />} />
+            <Route
+              path="/profile"
+              element={<AdminProfile adminAccount={admin} />}
+            />
             <Route
               path="/create-new"
               element={<ArticleForm type={"create"} reLoad={_handleLoad} />}
@@ -56,8 +60,9 @@ export default function AdminDashboard() {
               element={<ArticleForm type={"edit"} reLoad={_handleLoad} />}
             />
           </Routes>
-        </div>
-      </Container>
-    </Auth>
+        </Container>
+      </div>
+    </>
+    // </Auth>
   );
 }

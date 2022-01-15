@@ -8,6 +8,7 @@ import {
 } from "../../apis/service";
 import { ArticleModal } from "../../interface";
 import { useNavigate, useParams } from "react-router-dom";
+import { useGlobalContext } from "../../context/GlobalContext";
 
 interface IUser {
   id: number;
@@ -24,13 +25,15 @@ interface IUser {
 }
 
 function ArticleDetails() {
+  const { listTop4, getCategory } = useGlobalContext();
   const [article, setArticle] = useState<ArticleModal>();
   const [users, setUsers] = useState<IUser[]>([]);
   const [author, setAuthor] = useState<IUser>();
   const [arrRelated, setRelated] = useState<ArticleModal[]>([]);
+
   let navigate = useNavigate();
   const handleDetailComponent = (id: number) => {
-    navigate(`home/article/${id}`);
+    navigate(`/article/${id}`);
   };
 
   let params = useParams();
@@ -82,28 +85,10 @@ function ArticleDetails() {
     }
   }
 
-  const getCategory = (id: number) => {
-    switch (id) {
-      case 1:
-        return "Lập trình";
-        break;
-      case 2:
-        return "UI/UX";
-        break;
-      case 3:
-        return "Block Chain";
-        break;
-      case 4:
-        return "Mobile";
-        break;
-      case 5:
-        return "Internet";
-        break;
-    }
-  };
   const handleNavigateHome = () => {
-    navigate(`/home`);
+    navigate(`/`);
   };
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -271,7 +256,6 @@ function ArticleDetails() {
                           </div>
                         ))}
                       </div>
-                      {/*  */}
                       <div className={styles.inForUser}>
                         <div className={styles.contentUser}>
                           <img
@@ -312,14 +296,30 @@ function ArticleDetails() {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-lg-4">
-              <img
-                src="https://nb-default.wpthms.com/wp-content/plugins/wpthms-newsbeat-demo-ads/ads/streetstyle/300x250@2x.jpg"
-                width="400px"
-                height="600px"
-                style={{ objectFit: "cover", top: "30px" }}
-                className="sticky-top p-5"
-              />
+            <div className={`col-12 col-lg-4`}>
+              <div className={`pt-5 ps-3 ${styles.acticleList}`}>
+                <h3 className="text-muted">List Newest Actiles</h3>
+                {listTop4?.map((news, index) => (
+                  <div
+                    key={index}
+                    className="my-4 d-flex justify-content-start align-items-start"
+                  >
+                    <div className={`${styles.imageSize}`}>
+                      <img
+                        src={news.cover}
+                        alt=""
+                        className={`rounded mb-1 ${styles.imageContent}`}
+                      />
+                    </div>
+                    <div className="ms-4">
+                      <p className="h5">{news.title}</p>
+                      <a href={`/category/${id}`} className={`${styles.link}`}>
+                        {getCategory(news.categoryId)}
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
               {isDesktopOrLaptop && (
                 <button
                   style={{

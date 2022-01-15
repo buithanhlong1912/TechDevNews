@@ -1,9 +1,16 @@
 import moment from "moment";
 import React, { ReactElement, useEffect, useState } from "react";
-import { Button, Container, Table } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  OverlayTrigger,
+  Table,
+  Tooltip,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { deleteArticlesById } from "../../../../apis/service";
 import { ArticleModal } from "../../../../interface";
+import style from "./style.module.css";
 
 interface Props {
   listArticle: ArticleModal[];
@@ -23,61 +30,68 @@ export default function ArticleList({
   };
 
   return (
-    <>
+    <div className="">
+      <h2 className="text-center">List Article</h2>
       <div className="list-article">
         {listArticle.length !== 0 ? (
-          <Table striped bordered hover>
+          <Table responsive>
             <thead>
               <tr className="text-center">
                 <th>#</th>
                 <th>Title</th>
                 <th>Date Created</th>
-                <th className="col-2">Action</th>
+                <th>Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="border-top-0">
               {listArticle.map((article, i) => (
-                <tr key={article.id}>
-                  <td>{i}</td>
-                  <td>{article.title}</td>
-                  <td>
+                <tr key={article.id} className={style.tableRow}>
+                  <td className="text-center">{i + 1}</td>
+                  <td className={``}>{article.title}</td>
+                  <td className="text-center ">
                     {moment(article.dateCreate).format("DD/MM/YYYY, h:mm:ss a")}
                   </td>
-                  <td className="d-flex justify-content-between">
-                    <Button
-                      onClick={() => {
-                        navigate(`/admin/edit-new/${article.id}`);
-                      }}
-                      variant="success"
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="danger"
-                      onClick={() => {
-                        handleDelete(article.id);
-                      }}
-                    >
-                      Delete
-                    </Button>
+                  <td className="">
+                    <div className="d-flex justify-content-between">
+                      <a
+                        onClick={() => {
+                          navigate(`/admin/edit-new/${article.id}`);
+                        }}
+                        className={`text-primary ${style.pointer}`}
+                      >
+                        <i className="far fa-edit"></i>
+                      </a>
+                      <a
+                        onClick={() => {
+                          handleDelete(article.id);
+                        }}
+                        className={`text-danger ${style.pointer}`}
+                      >
+                        <i className="far fa-trash-alt"></i>
+                      </a>
+                    </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </Table>
         ) : (
-          <div>You don't have any article</div>
+          <div></div>
         )}
       </div>
-      <div className="my-2">
-        <Button
+      <OverlayTrigger
+        placement="left"
+        overlay={<Tooltip id={`tooltip-left`}>Add new acticle</Tooltip>}
+      >
+        <button
           onClick={() => {
             navigate("/admin/create-new");
           }}
+          className={`position-absolute ${style.add}`}
         >
-          Create new
-        </Button>
-      </div>
-    </>
+          +
+        </button>
+      </OverlayTrigger>
+    </div>
   );
 }

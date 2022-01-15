@@ -1,4 +1,4 @@
-import { IAdmin } from "../interface";
+// import { IAdmin } from "../interface";
 
 const getEmailFromLocal = (): string => {
   const admin = localStorage.getItem("admin");
@@ -12,4 +12,10 @@ const getAdminFromLocal = () => {
   return false;
 };
 
-export { getEmailFromLocal, getAdminFromLocal };
+const getUserFromLocal = () => {
+  const user = localStorage.getItem("user");
+  if (typeof user === "string") return JSON.parse(user);
+  return false;
+};
+
+export { getEmailFromLocal, getAdminFromLocal, getUserFromLocal };
