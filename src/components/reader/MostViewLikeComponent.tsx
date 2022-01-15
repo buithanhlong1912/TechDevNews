@@ -33,7 +33,7 @@ export default function HomePageCom3() {
             <p className=" text-center pb-3">The Most Like</p>
             {listByLike && (
               <div>
-                <div>
+                <div className="imgList">
                   <img
                     style={{ cursor: "pointer" }}
                     onClick={() => handleDetailComponent(listByLike[0].id)}
