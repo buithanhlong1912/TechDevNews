@@ -31,6 +31,7 @@ function ArticleDetails() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [author, setAuthor] = useState<IUser>();
   const [arrRelated, setRelated] = useState<ArticleModal[]>([]);
+
   let navigate = useNavigate();
 
   const handleDetailComponent = async (id: number) => {

@@ -10,7 +10,7 @@ import ArticleDetails from "../components/ArticleDetails/ArticleDetails";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import HomePageComponent from "../components/reader/HomePageComponent";
-import NewsByCategoryCom from "../components/reader/NewsByCategoryCom"; 
+import NewsByCategoryCom from "../components/reader/NewsByCategoryCom";
 import ResultComponent from "../components/reader/ResultComponent";
 import { CreateGlobalContext } from "../context/GlobalContext";
 import { ArticleModal } from "../interface";

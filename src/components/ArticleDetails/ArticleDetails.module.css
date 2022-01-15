@@ -160,7 +160,7 @@
 .pointer {
   cursor: pointer;
 }
-<<<<<<< .merge_file_a22244
+
 .homeNav:hover{
     color: gray;
 }
@@ -176,5 +176,21 @@
 .moveToTop:hover{
    opacity:0.8;
 }
-=======
->>>>>>> .merge_file_a13256
+
+.coverAvatar {
+  width: 172px;
+  height: 172px;
+  object-fit: cover;
+}
+.related:hover {
+  opacity: 0.7;
+  transition: all 1s;
+}
+
+.homeNav {
+  cursor: pointer;
+}
+.homeNav:hover {
+  color: gray;
+}
+
