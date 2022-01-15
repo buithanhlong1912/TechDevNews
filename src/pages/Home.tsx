@@ -20,6 +20,7 @@ export default function Home() {
   const [listByCategory, setListByCategory] = useState<ArticleModal[]>();
   const [listByView, setListByView] = useState<ArticleModal[]>();
   const [listByLike, setListByLike] = useState<ArticleModal[]>();
+  const [pageIndex, setPageIndex] = useState(1);
 
   useEffect(() => {
     getTop4Article().then((data) => setListTop4(data));
@@ -57,6 +58,8 @@ export default function Home() {
         listByLike,
         setListByLike,
         getCategory,
+        pageIndex,
+        setPageIndex,
       }}
     >
       <div>

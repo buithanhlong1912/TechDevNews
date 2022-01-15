@@ -6,15 +6,16 @@ import {
   getNewsByCategory,
   increasViewByArticleId,
 } from "../../apis/service";
+import { useGlobalContext } from "../../context/GlobalContext";
 import { ArticleModal, UserModal } from "../../interface";
 
 export default function NewsByCategoryCom() {
   const param = useParams();
   const [listByCategotyID, setListByCategotyID] = useState<ArticleModal[]>([]);
   const [listAuthors, setListAuthors] = useState<UserModal[]>([]);
-  const [pageIndex, setPageIndex] = useState(1);
   let navigate = useNavigate();
   const { id } = useParams();
+  const {pageIndex,setPageIndex} = useGlobalContext();
 
   useEffect(() => {
     getNewsByCategory(Number(param.id), pageIndex).then((data) =>
@@ -51,6 +52,7 @@ export default function NewsByCategoryCom() {
   };
 
   return (
+    
     <div>
       <div className="container ">
         <p className="h1 text pt-5 ps-5">The Newest News</p>

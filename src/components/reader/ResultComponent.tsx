@@ -2,13 +2,14 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Pagination } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getAllAuthor, getNewsByCategory, getSearch, increasViewByArticleId} from '../../apis/service';
+import { useGlobalContext } from '../../context/GlobalContext';
 import { ArticleModal, UserModal } from '../../interface';
 
 
 export default function ResultComponent() {
     const [listByCategotyID, setListByCategotyID] = useState<ArticleModal[]>([])
     const [listAuthors, setListAuthors] = useState<UserModal[]>([])
-    const [pageIndex, setPageIndex] = useState(1)
+    const {pageIndex, setPageIndex} = useGlobalContext()
     let navigate = useNavigate();
     const { title = ''} = useParams();
 
