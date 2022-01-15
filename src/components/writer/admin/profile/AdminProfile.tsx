@@ -1,7 +1,8 @@
 import { useFormik } from "formik";
 import React, { ReactElement, useCallback, useState } from "react";
 import { useEffect } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row, Toast, ToastContainer } from "react-bootstrap";
+import { editAccountAdmin } from "../../../../apis/service";
 import { IAdmin } from "../../../../interface";
 import { getAdminFromLocal } from "../../../../utilities";
 
@@ -18,6 +19,7 @@ interface IAccountForm {
 
 export default function AdminProfile({ adminAccount }: Props): ReactElement {
   const [editEnable, setEditEnable] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   let admin = getAdminFromLocal();
 
   const formik = useFormik({
@@ -27,13 +29,14 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
       about: "",
       avatar: "",
     },
-    onSubmit: (values) => {
-      // alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
       admin.info.name = values.name;
       admin.info.about = values.about;
       admin.info.avt = values.avatar;
+      await editAccountAdmin(admin);
       localStorage.setItem("admin", JSON.stringify(admin));
       setEditEnable(false);
+      setShowToast(true);
     },
   });
 
@@ -102,6 +105,16 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
             disabled={!editEnable}
           />
         </Form.Group>
+
+        <ToastContainer position="bottom-end" className="p-3">
+          <Toast onClose={() => setShowToast(false)} bg='primary' show={showToast} delay={5000} autohide>
+            <Toast.Header>
+              <strong className="me-auto">Notification</strong>
+            </Toast.Header>
+            <Toast.Body>Edit profile successfully!</Toast.Body>
+          </Toast>
+        </ToastContainer>
+
         {!editEnable ? (
           <p
             className="btn btn-primary"
