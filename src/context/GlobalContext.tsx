@@ -11,7 +11,7 @@ export interface Props {
   listByCategory: ArticleModal[] | undefined;
   setListByCategory: (listByCategory: ArticleModal[]) => void;
   getCategory: (id: number) => string;
-  pageIndex:number ;
+  pageIndex: number;
   setPageIndex: (pageIndex: number) => void;
 }
 
@@ -40,8 +40,8 @@ const CreateGlobalContext = createContext<Props>({
         return "";
     }
   },
-  pageIndex :1,
-  setPageIndex:()=> {},
+  pageIndex: 1,
+  setPageIndex: () => {},
 });
 
 const useGlobalContext = () => useContext(CreateGlobalContext);

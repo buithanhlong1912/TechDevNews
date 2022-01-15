@@ -1,5 +1,5 @@
 import axios from "axios";
-
+ 
 axios.interceptors.request.use(function (config) {
     config.headers = {
         ...config.headers,
@@ -10,3 +10,4 @@ axios.interceptors.request.use(function (config) {
 }, function (error) {
     return Promise.reject(error);
 });
+
