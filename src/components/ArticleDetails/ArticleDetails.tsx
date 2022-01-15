@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ArticleDetails.module.css";
+import { useMediaQuery } from "react-responsive";
 import {
   getArticlesById,
   getAuthors,
@@ -29,7 +30,7 @@ function ArticleDetails() {
   const [arrRelated, setRelated] = useState<ArticleModal[]>([]);
   let navigate = useNavigate();
   const handleDetailComponent = (id: number) => {
-    navigate(`/article/${id}`);
+    navigate(`home/article/${id}`);
   };
 
   let params = useParams();
@@ -103,6 +104,37 @@ function ArticleDetails() {
   const handleNavigateHome = () => {
     navigate(`/home`);
   };
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, [id]);
+
+  const [visible, setVisible] = useState(false);
+  const toggleVisible = () => {
+    const scrolled = document.documentElement.scrollTop;
+    if (scrolled > 100) {
+      setVisible(true);
+    } else if (scrolled <= 100) {
+      setVisible(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  window.addEventListener("scroll", toggleVisible);
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1224px)",
+  });
+
   return (
     <div className="mb-5">
       <div className={"container"}>
@@ -285,8 +317,23 @@ function ArticleDetails() {
                 src="https://nb-default.wpthms.com/wp-content/plugins/wpthms-newsbeat-demo-ads/ads/streetstyle/300x250@2x.jpg"
                 width="400px"
                 height="600px"
-                style={{ position: "fixed", objectFit: "contain" }}
+                style={{ objectFit: "cover", top: "30px" }}
+                className="sticky-top p-5"
               />
+              {isDesktopOrLaptop && (
+                <button
+                  style={{
+                    display: visible ? "inline" : "none",
+                    position: "fixed",
+                    bottom: "60px",
+                    right: "20px",
+                  }}
+                  className={styles.moveToTop}
+                  onClick={scrollToTop}
+                >
+                  <i className="fas fa-arrow-up"></i>
+                </button>
+              )}
             </div>
           </div>
         </div>
