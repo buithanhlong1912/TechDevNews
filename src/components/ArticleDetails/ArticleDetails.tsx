@@ -189,13 +189,11 @@ function ArticleDetails() {
                               color: "rgb(66,133,244)",
                             }}
                           ></i>
-                          <span>&nbsp;</span>
                           <span> {article && article.like} </span>
                           <i
                             className="far fa-thumbs-down"
                             style={{ marginRight: "3px" }}
                           ></i>
-                          <span>&nbsp;</span>
                           <span> {article && article.disLike} </span>
                           <i
                             className="fas fa-eye"
@@ -204,7 +202,6 @@ function ArticleDetails() {
                               color: "rgb(251,188,5)",
                             }}
                           ></i>
-                          <span>&nbsp;</span>
                           <span> {article && article.view} </span>
                         </li>
                       </ul>
@@ -227,7 +224,6 @@ function ArticleDetails() {
                           ></div>
                         )}
                       </div>
-                      {/*  */}
                       <div className="row my-5">
                         <p className="h4 mb-4">Related Articles</p>
                         {arrRelated?.map((item, index) => (
