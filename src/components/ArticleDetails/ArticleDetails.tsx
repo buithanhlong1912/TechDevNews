@@ -32,6 +32,7 @@ function ArticleDetails() {
   const [arrRelated, setRelated] = useState<ArticleModal[]>([]);
 
   let navigate = useNavigate();
+
   const handleDetailComponent = (id: number) => {
     navigate(`/article/${id}`);
   };
@@ -98,6 +99,7 @@ function ArticleDetails() {
   }, [id]);
 
   const [visible, setVisible] = useState(false);
+
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop;
     if (scrolled > 100) {
@@ -292,13 +294,14 @@ function ArticleDetails() {
                 </div>
               </div>
             </div>
-            <div className={`col-12 col-lg-4`}>
+            <div className="col-12 col-lg-4">
               <div className={`pt-5 ps-3 ${styles.acticleList}`}>
                 <h3 className="text-muted">List Newest Actiles</h3>
                 {listTop4?.map((news, index) => (
                   <div
                     key={index}
-                    className="my-4 d-flex justify-content-start align-items-start"
+                    className={`my-4 d-flex justify-content-start align-items-start ${styles.pointer}`}
+                    onClick={() => handleDetailComponent(news.id)}
                   >
                     <div className={`${styles.imageSize}`}>
                       <img
