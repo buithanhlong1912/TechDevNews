@@ -53,7 +53,7 @@ export default function ArticleList({
             <tbody className="border-top-0">
               {listArticle.listArticle.map((article, i) => (
                 <tr key={article.id} className={style.tableRow}>
-                  <td className="text-center">{pageIndex * 10 - 10 + i}</td>
+                  <td className="text-center">{pageIndex * 10 - 9 + i}</td>
                   <td className={``}>{article.title}</td>
                   <td className="text-center ">
                     {moment(article.dateCreate).format("DD/MM/YYYY, h:mm:ss a")}
