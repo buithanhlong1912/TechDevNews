@@ -59,7 +59,7 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
                 ...values,
                 content: editorContent,
                 authorId: authorId,
-                categoryId: Number(values.categoryId)
+                categoryId: Number(values.categoryId) || 1
             }
 
             if (type === 'create') {

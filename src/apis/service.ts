@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ArticleModal, ArticleModalFormAddDTO, IForm } from "../interface";
+import { ArticleModal, ArticleModalFormAddDTO, FormEditAdmin, IForm } from "../interface";
 
 axios.defaults.baseURL = "http://localhost:3000";
 
@@ -231,9 +231,18 @@ export async function getArticlesPage(pageIndex: number) {
     const nextPage = await axios.get(`/articles?_sort=dateCreate&_order=desc&_page=${pageIndex + 1}&_limit=10`);
     const data = {
       next: nextPage.data.length !== 0 ? true : false,
-      listArticle:response.data
+      listArticle: response.data
     }
     return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function editAccountAdmin(adminAcc: FormEditAdmin) {
+  try {
+    const response = await axios.patch(`/users/${adminAcc.id}`, adminAcc);
+    return response.data;
   } catch (error) {
     console.error(error);
   }
