@@ -2,34 +2,23 @@ import { ArticleModal } from "../../interface";
 import "./StyleHomePage.css";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import { editArticlesById, increasViewByArticleId } from "../../apis/service";
-interface ITop4 {
-  listTop4: ArticleModal[] | undefined;
-}
+import { increasViewByArticleId } from "../../apis/service";
+import { useGlobalContext } from "../../context/GlobalContext";
+// interface ITop4 {
+//   listTop4: ArticleModal[] | undefined;
+// }
 
-export default function HomePageCom1({ listTop4 }: ITop4) {
+export default function HomePageCom1() {
+  const { listTop4, getCategory } = useGlobalContext();
   let navigate = useNavigate();
-  const getCategory = (id: number) => {
-    switch (id) {
-      case 1:
-        return "Lập trình";
-      case 2:
-        return "UI/UX";
-      case 3:
-        return "Block Chain";
-      case 4:
-        return "Mobile";
-      case 5:
-        return "Internet";
-    }
-  };
+
   const handleCategory = (id: number) => {
-    navigate(`/home/category/${id}`);
+    navigate(`/category/${id}`);
   };
+
   const handleDetailComponent = (id: number) => {
-    increasViewByArticleId(id)
-    navigate(`/home/article/${id}`);
-    
+    increasViewByArticleId(id);
+    navigate(`/article/${id}`);
   };
 
   return (
@@ -57,7 +46,7 @@ export default function HomePageCom1({ listTop4 }: ITop4) {
           </div>
         )}
         {listTop4 && (
-          <div className="row px-5 py-4 borderCom1 rounded-top">
+          <div className="row px-5 py-4 borderCom1">
             <div className="col-12 col-md-4 px-4">
               <p
                 style={{ cursor: "pointer" }}

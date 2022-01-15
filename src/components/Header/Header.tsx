@@ -55,6 +55,7 @@ function Header() {
   };
 
   const Navigate = useNavigate();
+
   useEffect(() => {
     getCategoies().then((data) => {
       setTitle(data);
@@ -62,11 +63,11 @@ function Header() {
   }, []);
 
   const handleCategory = (id: number) => {
-    Navigate(`/home/category/${id}`);
+    Navigate(`/category/${id}`);
   };
 
   const handleHome = () => {
-    Navigate(`/home`);
+    Navigate(`/`);
   };
 
   const handleChangeSearch = (event: ChangeEvent<any>): void => {
@@ -80,7 +81,7 @@ function Header() {
     }, 400);
   };
 
-  const handleClickSearch = () => {
+  const handleSubmit = () => {
     if (valueInput) {
       Navigate(`article/search/${valueInput}`);
     }
@@ -114,7 +115,7 @@ function Header() {
             ))}
           </Nav>
           <Nav>
-            <Form className="d-flex mr-3">
+            <Form className="d-flex mr-3" onSubmit={handleSubmit}>
               <FormControl
                 type="search"
                 placeholder="Search"
@@ -122,10 +123,7 @@ function Header() {
                 aria-label="Search"
                 onChange={(event) => handleChangeSearch(event)}
               />
-              <Button
-                variant="btn btn-outline-light"
-                onClick={handleClickSearch}
-              >
+              <Button variant="btn btn-outline-light" type="submit">
                 <i className="fas fa-search"></i>
               </Button>
             </Form>
