@@ -14,6 +14,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { getUserFromLocal } from "../../utilities";
+import { useGlobalContext } from "../../context/GlobalContext";
 
 function Header() {
   const [menuTitle, setTitle] = useState([]);
@@ -29,6 +30,7 @@ function Header() {
     "421005288141-79gs72nt5s3divhvnm8fritsmjl2gnol.apps.googleusercontent.com";
 
   const userName = getUserFromLocal();
+  const {setPageIndex} = useGlobalContext();
 
   const onLoginSuccess = (res: any) => {
     localStorage.setItem("user", JSON.stringify(res.profileObj));
@@ -66,6 +68,7 @@ function Header() {
   }, []);
 
   const handleCategory = (id: number) => {
+    setPageIndex(1);
     Navigate(`/category/${id}`);
   };
 
