@@ -9,16 +9,31 @@ import {
   Container,
   Form,
   FormControl,
+  Modal,
   Nav,
   Navbar,
   NavDropdown,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Login from "./login/Login";
+import { GoogleLogin } from "react-google-login";
 
 function Header() {
   const [menuTitle, setTitle] = useState([]);
   const [valueInput, setValue] = useState("");
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [show, setShow] = useState<boolean>(false);
   const typingTimeoutRef = useRef(0);
+  const clientId =
+    "421005288141-79gs72nt5s3divhvnm8fritsmjl2gnol.apps.googleusercontent.com";
+
+  const onLoginSuccess = (res: any) => {
+    console.log("Login Success", res.profileObj);
+  };
+
+  const onFailureSuccess = (res: any) => {
+    console.log("Login Failure", res.profileObj);
+  };
 
   const Navigate = useNavigate();
   useEffect(() => {
@@ -28,7 +43,11 @@ function Header() {
   }, []);
 
   const handleCategory = (id: number) => {
-    Navigate(`/category/${id}`);
+    Navigate(`/home/category/${id}`);
+  };
+
+  const handleHome = () => {
+    Navigate(`/home`);
   };
 
   const handleChangeSearch = (event: ChangeEvent<any>): void => {
@@ -49,10 +68,23 @@ function Header() {
   };
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      bg="dark"
+      variant="dark"
+      className="sticky-top"
+    >
       <Container>
         <Navbar.Brand href="">
-          <img src={logo} className="logoApp" width="100" height="100" />
+          <img
+            style={{ cursor: "pointer" }}
+            onClick={handleHome}
+            src={logo}
+            className="logoApp"
+            width="100"
+            height="100"
+          />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -80,10 +112,32 @@ function Header() {
               </Button>
             </Form>
             &nbsp;&nbsp;&nbsp;
-            {/* <Nav.Link href="#deets"><i className="far fa-user-circle"></i></Nav.Link> Nếu chưa đăng nhập thì icon này*/}
-            <NavDropdown title="Hi, User" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
-            </NavDropdown>
+            {!loggedIn ? (
+              <GoogleLogin
+                clientId={clientId}
+                // render={() => (
+                //   <Nav.Link>
+                //     <i className="far fa-user-circle"></i>
+                //   </Nav.Link>
+                // )}
+                buttonText="Login"
+                onSuccess={onLoginSuccess}
+                onFailure={onFailureSuccess}
+                cookiePolicy={"single_host_origin"}
+              />
+            ) : (
+              <NavDropdown title="Hi, User" id="collasible-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
+              </NavDropdown>
+            )}
+            {/* <Modal show={show} onHide={() => setShow(false)}>
+              <Modal.Header closeButton>
+                <Modal.Title>Modal heading</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Login />
+              </Modal.Body>
+            </Modal> */}
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -11,13 +11,15 @@ export default function Home() {
   return (
     <div>
       <Header />
-      <Routes>
-        <Route path="/" element={<HomePageComponent />} />
-        {/* <Route path="/" element={<HomePageComponent />} /> */}
-        <Route path="/article/:id" element={<ArticleDetails />} />
-        <Route path="/article/search/:title" element={<ResultComponent />} />
-        <Route path="/category/:id" element={<NewsByCategoryCom />} />
-      </Routes>
+      <div style={{minHeight:"90vh"}}>
+        <Routes>
+          <Route path="/" element={<HomePageComponent />} />
+          {/* <Route path="/" element={<HomePageComponent />} /> */}
+          <Route path="/article/:id" element={<ArticleDetails />} />
+          <Route path="/category/:id" element={<NewsByCategoryCom />} />
+          <Route path="/article/search/:title" element={<ResultComponent />} />
+        </Routes>
+      </div>
       <Footer />
     </div>
   );
