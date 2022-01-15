@@ -22,11 +22,11 @@ export default function HomePageCom2() {
             key={index}
             className="col-xs-12 col-sm-12 col-md-6 col-lg-3 px-4"
           >
-            <div>
+            <div className="imgList">
               <img
                 style={{ cursor: "pointer" }}
                 onClick={() => handleDetailComponent(data.id)}
-                className="rounded imgCoverCom2"
+                className="imgCoverCom2"
                 src={data.cover}
                 alt="image"
               />
