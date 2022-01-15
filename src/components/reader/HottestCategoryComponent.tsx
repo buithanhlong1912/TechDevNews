@@ -8,10 +8,11 @@ export default function HomePageCom2() {
 
   let navigate = useNavigate();
 
-  const handleDetailComponent = (id: number) => {
-    increasViewByArticleId(id);
+  const handleDetailComponent = async (id: number) => {
+    await increasViewByArticleId(id);
     navigate(`/article/${id}`);
   };
+
   return (
     <div className="container my-5 ">
       <p className="h3 text-center">Spotlights</p>
