@@ -1,0 +1,30 @@
+.pointer {
+  cursor: pointer;
+}
+
+.pointer:hover {
+  border-bottom: 1px solid;
+}
+
+.tableRow td {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+
+.add {
+  bottom: 5rem;
+  right: 7rem;
+  display: block;
+  border-radius: 100%;
+  width: 3.7rem;
+  height: 3.7rem;
+  font-size: 2rem;
+  color: #fff;
+  background: #86a8e7;
+  border: #86a8e7;
+  z-index: 999;
+}
+
+.add:hover {
+  background-color: #91eae4;
+}

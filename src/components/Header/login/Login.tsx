@@ -6,10 +6,6 @@ const Login = () => {
   const clientId =
     "421005288141-79gs72nt5s3divhvnm8fritsmjl2gnol.apps.googleusercontent.com";
 
-  // const responseGoogle = (response: any) => {
-  //   console.log(response);
-  // };
-
   const onLoginSuccess = (res: any) => {
     console.log("Login Success", res.profileObj);
   };

@@ -1,40 +1,48 @@
+import { faSleigh } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { getArticles, getArticlesByAuthorId } from "../../../../apis/service";
+import { getArticlesPage } from "../../../../apis/service";
 import Auth from "../../../../guard/AuthGuard";
-import AuthGuard from "../../../../guard/AuthGuard";
-import { ArticleModal } from "../../../../interface";
+import { ArticleModal, IAdmin, ListArticleAdmin } from "../../../../interface";
+import { getAdminFromLocal } from "../../../../utilities";
 import ArticleForm from "../../handle-news/ArticleForm";
 import AdminHeader from "../admin-header/AdminHeader";
 import ArticleList from "../list-article/ArticleList";
 import AdminProfile from "../profile/AdminProfile";
 
 export default function AdminDashboard() {
-  const [listArticle, setListArticle] = useState<ArticleModal[]>([]);
+  const [listArticle, setListArticle] = useState<ListArticleAdmin>({ next: false, listArticle: [] });
   const [load, setLoad] = useState(true);
+  const [pageIndex, setpageIndex] = useState(1);
+
+  const nextPage = () => {
+    setpageIndex((pageIndex) => pageIndex + 1)
+  }
+
+  const prePage = () => {
+    setpageIndex((pageIndex) => pageIndex - 1)
+  }
+
+  const admin: IAdmin = getAdminFromLocal();
 
   const getArticleFromApis = async () => {
-    const listArticleFromApis: ArticleModal[] = await getArticles();
+    const listArticleFromApis = await getArticlesPage(pageIndex) as ListArticleAdmin;
     setListArticle(listArticleFromApis);
   };
 
   useEffect(() => {
     getArticleFromApis();
-    return () => {
-      getArticleFromApis();
-    };
-  }, [load]);
+  }, [load, pageIndex]);
 
   const _handleLoad = () => {
     setLoad((load) => !load);
   };
 
   return (
-    <Auth orRedirectTo="/admin/login">
-      <Container>
-        <AdminHeader />
-        <div className="mt-2">
+    <>
+      <div className="mt-2">
+        <Container>
           <Routes>
             <Route
               path="/"
@@ -43,10 +51,13 @@ export default function AdminDashboard() {
             <Route
               path="/manage-article"
               element={
-                <ArticleList listArticle={listArticle} reLoad={_handleLoad} />
+                <ArticleList listArticle={listArticle} reLoad={_handleLoad} nextPage={nextPage} prePage={prePage} pageIndex={pageIndex} />
               }
             />
-            <Route path="/profile" element={<AdminProfile />} />
+            <Route
+              path="/profile"
+              element={<AdminProfile adminAccount={admin} />}
+            />
             <Route
               path="/create-new"
               element={<ArticleForm type={"create"} reLoad={_handleLoad} />}
@@ -56,8 +67,9 @@ export default function AdminDashboard() {
               element={<ArticleForm type={"edit"} reLoad={_handleLoad} />}
             />
           </Routes>
-        </div>
-      </Container>
-    </Auth>
+        </Container>
+      </div>
+    </>
+    // </Auth>
   );
 }

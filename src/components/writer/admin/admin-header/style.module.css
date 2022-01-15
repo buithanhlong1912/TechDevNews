@@ -1,0 +1,39 @@
+.header {
+  /* background: #1f4037;
+  background: -webkit-linear-gradient(to right, #99f2c8, #0e7e60);
+  background: linear-gradient(165deg, #99f2c8, #048ec4); */
+  background: #7f7fd5;
+  background: -webkit-linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
+  background: linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
+  color: #fff;
+}
+
+.active {
+  color: #fff !important;
+  font-weight: 600 !important;
+  transition: all 0.8s !important;
+  background-color: transparent !important;
+  padding: 0.6rem;
+  margin: 0 0.4rem;
+  border: 2px solid #048ec4;
+  border-radius: 8px !important;
+}
+
+.navItem:hover {
+  border-radius: 8px !important;
+}
+
+.navItem {
+  color: #acacac;
+}
+
+.logoutBtn {
+  /* border-bottom: 1px solid; */
+  transition: all 0.9s !important;
+  /* padding-bottom: 0; */
+}
+
+.logoutBtn:hover {
+  transition: all 10s !important;
+  border-bottom: 1px solid;
+}

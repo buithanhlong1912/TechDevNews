@@ -67,3 +67,8 @@ export interface ArticleDetailDTO {
   view: number;
   user: IAdmin
 }
+
+export interface ListArticleAdmin {
+  next: Boolean,
+  listArticle: ArticleModal[]
+}
