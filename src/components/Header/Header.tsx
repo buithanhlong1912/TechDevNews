@@ -50,9 +50,12 @@ function Header() {
       imageUrl: "",
       name: "",
     });
-    setLoggedIn(false);
     localStorage.removeItem("user");
   };
+
+  useEffect(() => {
+    setLoggedIn(!loggedIn);
+  }, [user]);
 
   const Navigate = useNavigate();
 

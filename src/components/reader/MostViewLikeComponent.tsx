@@ -9,23 +9,8 @@ interface ICom3 {
   listByLike: ArticleModal[] | undefined;
 }
 export default function HomePageCom3() {
-  const { listByLike, listByView } = useGlobalContext();
+  const { listByLike, listByView, getCategory } = useGlobalContext();
   let navigate = useNavigate();
-
-  const getCategory = (id: number) => {
-    switch (id) {
-      case 1:
-        return "Lập trình";
-      case 2:
-        return "UI/UX";
-      case 3:
-        return "Block Chain";
-      case 4:
-        return "Mobile";
-      case 5:
-        return "Internet";
-    }
-  };
 
   const handleCategory = (id: number) => {
     navigate(`/category/${id}`);
@@ -48,7 +33,7 @@ export default function HomePageCom3() {
             <p className=" text-center pb-3">The Most Like</p>
             {listByLike && (
               <div>
-                <div>
+                <div className="imgList">
                   <img
                     style={{ cursor: "pointer" }}
                     onClick={() => handleDetailComponent(listByLike[0].id)}
@@ -179,7 +164,7 @@ export default function HomePageCom3() {
             <p className=" text-center pb-3">The Most View</p>
             {listByView && (
               <div>
-                <div>
+                <div className="imgList">
                   <img
                     style={{ cursor: "pointer" }}
                     onClick={() => handleDetailComponent(listByView[0].id)}
