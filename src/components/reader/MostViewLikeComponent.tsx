@@ -16,9 +16,9 @@ export default function HomePageCom3() {
     navigate(`/category/${id}`);
   };
 
-  const handleDetailComponent = (id: number) => {
-    increasViewByArticleId(id);
-    navigate(`/article/${id}`);
+  const handleDetailComponent = async (id: number) => {
+    await increasViewByArticleId(id);
+    navigate(`/article/${id}`)
   };
 
   return (

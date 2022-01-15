@@ -16,8 +16,8 @@ export default function HomePageCom1() {
     navigate(`/category/${id}`);
   };
 
-  const handleDetailComponent = (id: number) => {
-    increasViewByArticleId(id);
+  const handleDetailComponent = async (id: number) => {
+    await increasViewByArticleId(id);
     navigate(`/article/${id}`);
   };
 
