@@ -1,4 +1,4 @@
-import { IAdmin } from "../interface";
+// import { IAdmin } from "../interface";
 
 const getEmailFromLocal = (): string => {
   const admin = localStorage.getItem("admin");

@@ -1,33 +1,39 @@
-import { useFormik } from 'formik';
-import React, { ReactElement, useState } from 'react'
-import { useEffect } from 'react';
-import { Button, Col, Form, Row } from 'react-bootstrap'
-import { IAdmin } from '../../../../interface'
+import { useFormik } from "formik";
+import React, { ReactElement, useCallback, useState } from "react";
+import { useEffect } from "react";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import { IAdmin } from "../../../../interface";
+import { getAdminFromLocal } from "../../../../utilities";
 
 interface Props {
-  adminAccount: IAdmin
+  adminAccount: IAdmin;
 }
 
 interface IAccountForm {
-  email: string,
-  name: string,
-  about: string,
-  avatar: string,
+  email: string;
+  name: string;
+  about: string;
+  avatar: string;
 }
 
 export default function AdminProfile({ adminAccount }: Props): ReactElement {
-
   const [editEnable, setEditEnable] = useState(false);
+  let admin = getAdminFromLocal();
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      name: '',
-      about: '',
-      avatar: '',
+      email: "",
+      name: "",
+      about: "",
+      avatar: "",
     },
-    onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: (values) => {
+      // alert(JSON.stringify(values, null, 2));
+      admin.info.name = values.name;
+      admin.info.about = values.about;
+      admin.info.avt = values.avatar;
+      localStorage.setItem("admin", JSON.stringify(admin));
+      setEditEnable(false);
     },
   });
 
@@ -37,13 +43,13 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
       name: adminAccount.info.name,
       about: adminAccount.info.about,
       avatar: adminAccount.info.avt,
-    }
+    };
     formik.setValues(adminAccClone);
-  }, [])
+  }, []);
 
   return (
     <div>
-      <h2 className='text-center'>Profile</h2>
+      <h2 className="text-center">Profile</h2>
       <Form onSubmit={formik.handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Email address</Form.Label>
@@ -72,7 +78,8 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
         <Form.Group className="mb-3">
           <Form.Label>About</Form.Label>
           <Form.Control
-            as="textarea" rows={4}
+            as="textarea"
+            rows={4}
             type="text"
             name="about"
             id="about"
@@ -95,18 +102,21 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
             disabled={!editEnable}
           />
         </Form.Group>
-        {!editEnable ?
-          <p className='btn btn-primary'
-            onClick={() => { setEditEnable(true) }}
+        {!editEnable ? (
+          <p
+            className="btn btn-primary"
+            onClick={() => {
+              setEditEnable(true);
+            }}
           >
             Edit
           </p>
-          :
+        ) : (
           <Button variant="primary" type="submit">
             Submit
           </Button>
-          }
+        )}
       </Form>
     </div>
-  )
+  );
 }

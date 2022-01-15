@@ -34,5 +34,6 @@
 }
 
 .logoutBtn:hover {
+  transition: all 10s !important;
   border-bottom: 1px solid;
 }
