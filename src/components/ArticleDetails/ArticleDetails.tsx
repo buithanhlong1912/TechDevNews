@@ -5,6 +5,7 @@ import {
   getArticlesById,
   getAuthors,
   getArticlesByAuthorId,
+  increasViewByArticleId,
 } from "../../apis/service";
 import { ArticleModal } from "../../interface";
 import { useNavigate, useParams } from "react-router-dom";
@@ -30,9 +31,10 @@ function ArticleDetails() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [author, setAuthor] = useState<IUser>();
   const [arrRelated, setRelated] = useState<ArticleModal[]>([]);
-
   let navigate = useNavigate();
-  const handleDetailComponent = (id: number) => {
+
+  const handleDetailComponent =async (id: number) => {
+    await increasViewByArticleId(id);
     navigate(`/article/${id}`);
   };
 
@@ -42,6 +44,7 @@ function ArticleDetails() {
   useEffect(() => {
     getArticlesById(parseInt(id)).then((data) => {
       setArticle(data);
+      console.log(data)
     });
     getAuthors().then((data) => {
       setUsers(data);

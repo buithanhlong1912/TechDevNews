@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Pagination } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getAllAuthor, getNewsByCategory, getSearch} from '../../apis/service';
+import { getAllAuthor, getNewsByCategory, getSearch, increasViewByArticleId} from '../../apis/service';
 import { ArticleModal, UserModal } from '../../interface';
 
 
@@ -39,7 +39,8 @@ export default function ResultComponent() {
         [listAuthors, pageIndex],
     );
 
-    const handleDetailComponent = (id: number) => {
+    const handleDetailComponent = async (id: number) => {
+        await increasViewByArticleId(id);
         navigate(`/article/${id}`)
     }
     return (
