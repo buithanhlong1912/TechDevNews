@@ -35,10 +35,7 @@ export default function ArticleList({
       reLoad();
     }
   };
-
-  console.log(listArticle);
   
-
   return (
     <div className="">
       <h2 className="text-center">List Article</h2>

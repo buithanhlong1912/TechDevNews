@@ -72,3 +72,14 @@ export interface ListArticleAdmin {
   next: Boolean,
   listArticle: ArticleModal[]
 }
+
+export interface FormEditAdmin {
+  id: number,
+  info: {
+    about: string,
+    name: string,
+    avt: string,
+    gender: string,
+    age: number
+  }
+}
