@@ -157,3 +157,6 @@
     left: -25px;
   }
 }
+.pointer {
+  cursor: pointer;
+}

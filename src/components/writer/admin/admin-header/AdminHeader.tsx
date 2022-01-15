@@ -19,7 +19,7 @@ export default function AdminHeader({}: Props): ReactElement {
   };
 
   return (
-    <header>
+    <header className="sticky-top">
       <div className={`${style.header}`}>
         <Navbar>
           <Container className="d-flex justify-content-between align-items-center">
