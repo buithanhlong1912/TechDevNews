@@ -58,9 +58,9 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
             const article: ArticleModalFormAddDTO = {
                 ...values,
                 content: editorContent,
-                authorId: authorId
+                authorId: authorId,
+                categoryId: Number(values.categoryId)
             }
-            console.log(article);
 
             if (type === 'create') {
                 await createAricle(article);
