@@ -28,3 +28,14 @@
 .add:hover {
   background-color: #91eae4;
 }
+
+@media screen and (max-width: 1500px) {
+  .add {
+    bottom: -0.5rem;
+    width: 2.8rem;
+    height: 2.8rem;
+    padding-bottom: 5px;
+    line-height: 0;
+    z-index: 0;
+  }
+}

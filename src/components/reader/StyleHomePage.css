@@ -51,6 +51,8 @@
 .ads {
   width: 100%;
   padding: 25px;
+  position: sticky;
+  top: 5rem;
 }
 .imgList {
   overflow: hidden;
@@ -64,4 +66,7 @@
   transform: scale(1.2);
   -webkit-transform: scale(1.2);
   border-radius: 0.25rem;
+}
+.paginationBtn {
+  border-radius: 0.35rem !important;
 }

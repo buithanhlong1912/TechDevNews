@@ -1,5 +1,10 @@
 import axios from "axios";
-import { ArticleModal, ArticleModalFormAddDTO, FormEditAdmin, IForm } from "../interface";
+import {
+  ArticleModal,
+  ArticleModalFormAddDTO,
+  FormEditAdmin,
+  IForm,
+} from "../interface";
 
 axios.defaults.baseURL = "http://localhost:3000";
 
@@ -217,8 +222,9 @@ export async function increasViewByArticleId(id: number) {
     const articleById = await axios.get("/articles?id=" + id);
 
     const currentView = articleById.data[0].view;
-    const response = await axios.patch("/articles/" + id, { view: currentView + 1 });
-
+    const response = await axios.patch("/articles/" + id, {
+      view: currentView + 1,
+    });
 
     return response.data;
   } catch (error) {
@@ -228,12 +234,16 @@ export async function increasViewByArticleId(id: number) {
 
 export async function getArticlesPage(pageIndex: number) {
   try {
-    const response = await axios.get(`/articles?_sort=dateCreate&_order=desc&_page=${pageIndex}&_limit=10`);
-    const nextPage = await axios.get(`/articles?_sort=dateCreate&_order=desc&_page=${pageIndex + 1}&_limit=10`);
+    const response = await axios.get(
+      `/articles?_sort=dateCreate&_order=desc&_page=${pageIndex}&_limit=10`
+    );
+    const nextPage = await axios.get(
+      `/articles?_sort=dateCreate&_order=desc&_page=${pageIndex + 1}&_limit=10`
+    );
     const data = {
       next: nextPage.data.length !== 0 ? true : false,
-      listArticle: response.data
-    }
+      listArticle: response.data,
+    };
     return data;
   } catch (error) {
     console.error(error);
@@ -244,20 +254,6 @@ export async function editAccountAdmin(adminAcc: FormEditAdmin) {
   try {
     const response = await axios.patch(`/users/${adminAcc.id}`, adminAcc);
     return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-export async function getArticlesPage(pageIndex: number) {
-  try {
-    const response = await axios.get(`/articles?_sort=dateCreate&_order=desc&_page=${pageIndex}&_limit=10`);
-    const nextPage = await axios.get(`/articles?_sort=dateCreate&_order=desc&_page=${pageIndex + 1}&_limit=10`);
-    const data = {
-      next: nextPage.data.length !== 0 ? true : false,
-      listArticle:response.data
-    }
-    return data;
   } catch (error) {
     console.error(error);
   }

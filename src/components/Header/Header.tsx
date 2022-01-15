@@ -30,7 +30,7 @@ function Header() {
     "421005288141-79gs72nt5s3divhvnm8fritsmjl2gnol.apps.googleusercontent.com";
 
   const userName = getUserFromLocal();
-  const {setPageIndex} = useGlobalContext();
+  const { setPageIndex } = useGlobalContext();
 
   const onLoginSuccess = (res: any) => {
     localStorage.setItem("user", JSON.stringify(res.profileObj));
@@ -53,11 +53,8 @@ function Header() {
       name: "",
     });
     localStorage.removeItem("user");
+    setLoggedIn(false);
   };
-
-  useEffect(() => {
-    setLoggedIn(!loggedIn);
-  }, [user]);
 
   const Navigate = useNavigate();
 
@@ -65,6 +62,7 @@ function Header() {
     getCategoies().then((data) => {
       setTitle(data);
     });
+    if (localStorage.getItem("user")) setLoggedIn(true);
   }, []);
 
   const handleCategory = (id: number) => {
@@ -120,7 +118,7 @@ function Header() {
               </Nav.Link>
             ))}
           </Nav>
-          <Nav>
+          <Nav className="align-items-center">
             <Form className="d-flex mr-3" onSubmit={handleSubmit}>
               <FormControl
                 type="search"
@@ -144,7 +142,7 @@ function Header() {
                   clientId={clientId}
                   render={(renderProps) => (
                     <NavDropdown.Item onClick={renderProps.onClick}>
-                      <i className="fab fa-google"></i> Logout by Google
+                      <i className="fab fa-google me-2"></i> Logout
                     </NavDropdown.Item>
                   )}
                   buttonText="Logout"
@@ -155,9 +153,12 @@ function Header() {
               <GoogleLogin
                 clientId={clientId}
                 render={(renderProps) => (
-                  <Nav.Link onClick={renderProps.onClick}>
-                    <i className="far fa-user-circle"></i>
-                  </Nav.Link>
+                  <div
+                    className="text-muted pointer"
+                    onClick={renderProps.onClick}
+                  >
+                    <i className="far fa-user-circle fa-2x"></i>
+                  </div>
                 )}
                 buttonText="Login"
                 onSuccess={onLoginSuccess}
