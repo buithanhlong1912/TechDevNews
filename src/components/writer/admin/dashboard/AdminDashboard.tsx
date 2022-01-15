@@ -33,10 +33,9 @@ export default function AdminDashboard() {
   };
 
   return (
-    <Auth orRedirectTo="/admin/login">
-      <Container>
-        <AdminHeader />
-        <div className="mt-2">
+    <>
+      <div className="mt-2">
+        <Container>
           <Routes>
             <Route
               path="/"
@@ -48,7 +47,10 @@ export default function AdminDashboard() {
                 <ArticleList listArticle={listArticle} reLoad={_handleLoad} />
               }
             />
-            <Route path="/profile" element={<AdminProfile adminAccount={admin} />} />
+            <Route
+              path="/profile"
+              element={<AdminProfile adminAccount={admin} />}
+            />
             <Route
               path="/create-new"
               element={<ArticleForm type={"create"} reLoad={_handleLoad} />}
@@ -58,8 +60,9 @@ export default function AdminDashboard() {
               element={<ArticleForm type={"edit"} reLoad={_handleLoad} />}
             />
           </Routes>
-        </div>
-      </Container>
-    </Auth>
+        </Container>
+      </div>
+    </>
+    // </Auth>
   );
 }
