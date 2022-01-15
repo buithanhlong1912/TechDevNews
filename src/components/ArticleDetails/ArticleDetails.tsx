@@ -5,6 +5,7 @@ import {
   getArticlesById,
   getAuthors,
   getArticlesByAuthorId,
+  increasViewByArticleId,
 } from "../../apis/service";
 import { ArticleModal } from "../../interface";
 import { useNavigate, useParams } from "react-router-dom";
@@ -30,9 +31,10 @@ function ArticleDetails() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [author, setAuthor] = useState<IUser>();
   const [arrRelated, setRelated] = useState<ArticleModal[]>([]);
-
   let navigate = useNavigate();
-  const handleDetailComponent = (id: number) => {
+
+  const handleDetailComponent = async (id: number) => {
+    await increasViewByArticleId(id);
     navigate(`/article/${id}`);
   };
 
@@ -42,6 +44,7 @@ function ArticleDetails() {
   useEffect(() => {
     getArticlesById(parseInt(id)).then((data) => {
       setArticle(data);
+      console.log(data)
     });
     getAuthors().then((data) => {
       setUsers(data);
@@ -98,6 +101,7 @@ function ArticleDetails() {
   }, [id]);
 
   const [visible, setVisible] = useState(false);
+
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop;
     if (scrolled > 100) {
@@ -189,13 +193,11 @@ function ArticleDetails() {
                               color: "rgb(66,133,244)",
                             }}
                           ></i>
-                          <span>&nbsp;</span>
                           <span> {article && article.like} </span>
                           <i
                             className="far fa-thumbs-down"
                             style={{ marginRight: "3px" }}
                           ></i>
-                          <span>&nbsp;</span>
                           <span> {article && article.disLike} </span>
                           <i
                             className="fas fa-eye"
@@ -204,7 +206,6 @@ function ArticleDetails() {
                               color: "rgb(251,188,5)",
                             }}
                           ></i>
-                          <span>&nbsp;</span>
                           <span> {article && article.view} </span>
                         </li>
                       </ul>
@@ -227,7 +228,6 @@ function ArticleDetails() {
                           ></div>
                         )}
                       </div>
-                      {/*  */}
                       <div className="row my-5">
                         <p className="h4 mb-4">Related Articles</p>
                         {arrRelated?.map((item, index) => (
@@ -296,13 +296,14 @@ function ArticleDetails() {
                 </div>
               </div>
             </div>
-            <div className={`col-12 col-lg-4`}>
+            <div className="col-12 col-lg-4">
               <div className={`pt-5 ps-3 ${styles.acticleList}`}>
                 <h3 className="text-muted">List Newest Actiles</h3>
                 {listTop4?.map((news, index) => (
                   <div
                     key={index}
-                    className="my-4 d-flex justify-content-start align-items-start"
+                    className={`my-4 d-flex justify-content-start align-items-start ${styles.pointer}`}
+                    onClick={() => handleDetailComponent(news.id)}
                   >
                     <div className={`${styles.imageSize}`}>
                       <img
