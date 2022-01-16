@@ -10,7 +10,7 @@ import ArticleDetails from "../components/ArticleDetails/ArticleDetails";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import HomePageComponent from "../components/reader/HomePageComponent";
-import NewsByCategoryCom from "../components/reader/NewsByCategoryCom"; 
+import NewsByCategoryCom from "../components/reader/NewsByCategoryCom";
 import ResultComponent from "../components/reader/ResultComponent";
 import { CreateGlobalContext } from "../context/GlobalContext";
 import { ArticleModal } from "../interface";
@@ -21,12 +21,30 @@ export default function Home() {
   const [listByView, setListByView] = useState<ArticleModal[]>();
   const [listByLike, setListByLike] = useState<ArticleModal[]>();
   const [pageIndex, setPageIndex] = useState(1);
+  const [user, setUser] = useState({
+    email: "",
+    imageUrl: "",
+    name: "",
+  });
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
     getTop4Article().then((data) => setListTop4(data));
     getArticleByCategoryId(2).then((data) => setListByCategory(data));
     getTop4ByView().then((data) => setListByView(data));
     getTop4ByLike().then((data) => setListByLike(data));
+    const local = localStorage.getItem("user");
+    if (local) {
+      const result = JSON.parse(local);
+      setUser({
+        ...user,
+        email: result.email,
+        imageUrl: result.imageUrl,
+        name: result.name,
+      });
+    } else {
+      setUser({ ...user });
+    }
   }, []);
 
   const getCategory = (id: number) => {
@@ -60,6 +78,10 @@ export default function Home() {
         getCategory,
         pageIndex,
         setPageIndex,
+        user,
+        setUser,
+        loggedIn,
+        setLoggedIn,
       }}
     >
       <div>
