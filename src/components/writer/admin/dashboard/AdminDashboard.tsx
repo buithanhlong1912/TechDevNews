@@ -15,6 +15,7 @@ export default function AdminDashboard() {
   const [listArticle, setListArticle] = useState<ListArticleAdmin>({ next: false, listArticle: [] });
   const [load, setLoad] = useState(true);
   const [pageIndex, setpageIndex] = useState(1);
+  const [searchKey, setSearchKey] = useState('');
 
   const nextPage = () => {
     setpageIndex((pageIndex) => pageIndex + 1)
@@ -27,17 +28,23 @@ export default function AdminDashboard() {
   const admin: IAdmin = getAdminFromLocal();
 
   const getArticleFromApis = async () => {
-    const listArticleFromApis = await getArticlesPage(pageIndex) as ListArticleAdmin;
+    const listArticleFromApis = await getArticlesPage(pageIndex, searchKey) as ListArticleAdmin;
     setListArticle(listArticleFromApis);
   };
 
   useEffect(() => {
     getArticleFromApis();
-  }, [load, pageIndex]);
+  }, [load, pageIndex, searchKey]);
 
   const _handleLoad = () => {
     setLoad((load) => !load);
   };
+
+
+  const actionValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKey(e.target.value);
+    setpageIndex(1);
+  }
 
   return (
     <>
@@ -51,7 +58,13 @@ export default function AdminDashboard() {
             <Route
               path="/manage-article"
               element={
-                <ArticleList listArticle={listArticle} reLoad={_handleLoad} nextPage={nextPage} prePage={prePage} pageIndex={pageIndex} />
+                <ArticleList
+                  listArticle={listArticle}
+                  reLoad={_handleLoad}
+                  nextPage={nextPage}
+                  prePage={prePage}
+                  pageIndex={pageIndex}
+                  actionValueChange={actionValueChange} />
               }
             />
             <Route

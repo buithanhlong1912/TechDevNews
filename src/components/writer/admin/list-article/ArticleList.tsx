@@ -3,6 +3,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import {
   Button,
   Container,
+  Form,
   OverlayTrigger,
   Pagination,
   Table,
@@ -18,6 +19,7 @@ interface Props {
   reLoad: () => void;
   nextPage: () => void;
   prePage: () => void;
+  actionValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   pageIndex: number;
 }
 
@@ -27,6 +29,7 @@ export default function ArticleList({
   nextPage,
   prePage,
   pageIndex,
+  actionValueChange
 }: Props): ReactElement {
   const navigate = useNavigate();
   const handleDelete = async (id: number) => {
@@ -38,7 +41,12 @@ export default function ArticleList({
 
   return (
     <div className="">
+      <div className="d-flex justify-content-between">
       <h2 className="text-center">List Article</h2>
+        <Form.Group className="mb-3">
+          <Form.Control onChange={actionValueChange} type='text' placeholder="Search article by title" />
+        </Form.Group>
+      </div>
       <div className="list-article">
         {listArticle.listArticle.length !== 0 ? (
           <Table responsive>
