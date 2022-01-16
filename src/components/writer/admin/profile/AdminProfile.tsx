@@ -107,11 +107,19 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
         </Form.Group>
 
         <ToastContainer position="bottom-end" className="p-3">
-          <Toast onClose={() => setShowToast(false)} bg='primary' show={showToast} delay={5000} autohide>
+          <Toast
+            onClose={() => setShowToast(false)}
+            show={showToast}
+            delay={5000}
+            autohide
+            bg="success"
+          >
             <Toast.Header>
               <strong className="me-auto">Notification</strong>
             </Toast.Header>
-            <Toast.Body>Edit profile successfully!</Toast.Body>
+            <Toast.Body className="bg-light ">
+              Edit profile successfully!
+            </Toast.Body>
           </Toast>
         </ToastContainer>
 

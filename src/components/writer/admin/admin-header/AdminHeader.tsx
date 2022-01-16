@@ -1,7 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { IAdmin } from "../../../../interface";
 import { getEmailFromLocal } from "../../../../utilities";
 import img from "../../../../logo/techdevnews_logo.png";
 import style from "./style.module.css";
@@ -64,7 +63,7 @@ export default function AdminHeader({}: Props): ReactElement {
               </Nav.Item>
             </Nav>
             <Nav.Link className="text-white" onClick={handleLogout}>
-              <span className={`${style.logoutBtn}`}>{userName}</span>
+              <span className={`${style.logoutBtn}`}>{userName} (Logout)</span>
             </Nav.Link>
           </Container>
         </Navbar>
