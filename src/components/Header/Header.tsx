@@ -23,14 +23,14 @@ import { useGlobalContext } from "../../context/GlobalContext";
 import { ClientDTO, ClientModal } from "../../interface";
 
 function Header() {
-  const { setUser, loggedIn, setLoggedIn } = useGlobalContext();
+  const { user, setUser, loggedIn, setLoggedIn } = useGlobalContext();
   const [menuTitle, setTitle] = useState([]);
   const [valueInput, setValue] = useState("");
   const typingTimeoutRef = useRef(0);
   const clientId =
     "421005288141-79gs72nt5s3divhvnm8fritsmjl2gnol.apps.googleusercontent.com";
 
-  const userName = getUserFromLocal();
+  // const userName = getUserFromLocal();
   const { setPageIndex } = useGlobalContext();
 
   const onLoginSuccess = async (res: any) => {
@@ -145,10 +145,20 @@ function Header() {
             &nbsp;&nbsp;&nbsp;
             {loggedIn || localStorage.getItem("user") ? (
               <NavDropdown
-                title={`${userName.name}`}
+                title={
+                  <>
+                    <img
+                      alt=""
+                      src={user.imageUrl}
+                      width="40"
+                      height="40"
+                      className="rounded-circle me-2"
+                    />
+                    <span>{user.name}</span>
+                  </>
+                }
                 id="collasible-nav-dropdown"
               >
-                {/* <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item> */}
                 <GoogleLogout
                   clientId={clientId}
                   render={(renderProps) => (

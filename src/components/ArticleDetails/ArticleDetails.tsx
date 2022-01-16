@@ -183,7 +183,7 @@ function ArticleDetails() {
                 <div className={styles.Rows}>
                   <div className="col-12">
                     <div className={styles.content_top}>
-                      <ul
+                      {/* <ul
                         className={
                           "d-flex justify-content-start align-items-center p-0 mb-3" +
                           " " +
@@ -208,7 +208,7 @@ function ArticleDetails() {
                             style={{ color: "rgb(202,33,42)" }}
                           ></i>
                         </li>
-                      </ul>
+                      </ul> */}
                       <h1>{article && article.title}</h1>
                       <ul className={styles.listInfor}>
                         <li>
@@ -250,14 +250,21 @@ function ArticleDetails() {
                           ></div>
                         )}
                       </div>
-                      <Button
-                        variant={liked ? "info" : "outline-info"}
-                        className="mt-3"
-                        onClick={handleClickLike}
-                      >
-                        <i className={`far fa-thumbs-up text-danger`}></i>
-                        <span> {likeNum} </span>
-                      </Button>
+                      <div className="d-flex align-items-center">
+                        <button
+                          className={
+                            `mt-3 ${styles.likeBtn} ` +
+                            (liked ? `${styles.liked}` : "")
+                          }
+                          onClick={handleClickLike}
+                        >
+                          <i
+                            className={`far fa-heart me-2`}
+                            aria-hidden="true"
+                          ></i>
+                          <span>{likeNum}</span>
+                        </button>
+                      </div>
                       <div className="row my-5">
                         <p className="h4 mb-4">Related Articles</p>
                         {arrRelated?.map((item, index) => (
