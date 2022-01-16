@@ -56,7 +56,9 @@ function Header() {
   };
 
   useEffect(() => {
-    setLoggedIn(!loggedIn);
+    if (user.email !== '') {
+      setLoggedIn(!loggedIn);
+    }
   }, [user]);
 
   const Navigate = useNavigate();

@@ -6,6 +6,7 @@ import {
   getAuthors,
   getArticlesByAuthorId,
   increasViewByArticleId,
+  getArticles,
 } from "../../apis/service";
 import { ArticleModal } from "../../interface";
 import { useNavigate, useParams } from "react-router-dom";
@@ -31,20 +32,19 @@ function ArticleDetails() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [author, setAuthor] = useState<IUser>();
   const [arrRelated, setRelated] = useState<ArticleModal[]>([]);
+
   let navigate = useNavigate();
+  let params = useParams();
+  const id = !!params.id ? params.id : "";
 
   const handleDetailComponent = async (id: number) => {
     await increasViewByArticleId(id);
     navigate(`/article/${id}`);
   };
 
-  let params = useParams();
-  const id = !!params.id ? params.id : "1";
-
   useEffect(() => {
     getArticlesById(parseInt(id)).then((data) => {
       setArticle(data);
-      console.log(data)
     });
     getAuthors().then((data) => {
       setUsers(data);
@@ -67,6 +67,18 @@ function ArticleDetails() {
     }
   }, [author]);
 
+   useEffect(() => {
+     getArticles().then((data) => {
+       let newArrId: string[] = [];
+       data.map((item: ArticleModal) => {
+         newArrId.push(item.id.toString());
+       });
+        if (newArrId.includes(id) === false) {
+          navigate(`/`);
+        }
+     });
+   }, [id]);
+   
   function getDate(stringDate: string): string {
     const dateCreate = new Date(stringDate);
     const dateNow = new Date();
