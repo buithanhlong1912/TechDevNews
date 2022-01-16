@@ -93,14 +93,6 @@ export default function ArticleList({
               onClick={nextPage}
             />
           </Pagination>
-          {/* <button
-            onClick={() => {
-              navigate("/admin/create-new");
-            }}
-            className={`${style.add}`}
-          >
-            +
-          </button> */}
           <OverlayTrigger
             placement="left"
             overlay={<Tooltip id={`tooltip-left`}>Add new acticle</Tooltip>}
