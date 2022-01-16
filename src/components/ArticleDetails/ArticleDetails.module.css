@@ -182,6 +182,7 @@
   height: 172px;
   object-fit: cover;
 }
+
 .related:hover {
   opacity: 0.7;
   transition: all 1s;
@@ -190,6 +191,36 @@
 .homeNav {
   cursor: pointer;
 }
+
 .homeNav:hover {
   color: gray;
+}
+
+.likeBtn {
+  display: block;
+  text-align: center;
+  background-color: transparent;
+  border-radius: 5px;
+  /* box-shadow: 0 10px 20px -8px rgb(240, 75, 113); */
+  padding: 0.4rem 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border: 1px solid #ed2553;
+  outline: none;
+  color: #ed2553;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.likeBtn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px -8px rgb(240, 75, 113);
+  background-color: #ed2553;
+  color: white;
+}
+
+.liked {
+  background-color: #ed2553;
+  color: #fff;
+  box-shadow: 0 10px 20px -8px rgb(240, 75, 113);
 }
