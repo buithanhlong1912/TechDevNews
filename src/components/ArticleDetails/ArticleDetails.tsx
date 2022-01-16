@@ -6,10 +6,14 @@ import {
   getAuthors,
   getArticlesByAuthorId,
   increasViewByArticleId,
+  getClient,
+  increaseLike,
+  decreaseLike,
 } from "../../apis/service";
 import { ArticleModal } from "../../interface";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGlobalContext } from "../../context/GlobalContext";
+import { Button } from "react-bootstrap";
 
 interface IUser {
   id: number;
@@ -26,11 +30,14 @@ interface IUser {
 }
 
 function ArticleDetails() {
+  const { user, setLoggedIn, loggedIn } = useGlobalContext();
   const { listTop4, getCategory } = useGlobalContext();
   const [article, setArticle] = useState<ArticleModal>();
   const [users, setUsers] = useState<IUser[]>([]);
   const [author, setAuthor] = useState<IUser>();
   const [arrRelated, setRelated] = useState<ArticleModal[]>([]);
+  const [liked, setLiked] = useState<boolean>(false);
+  const [likeNum, setLikeNum] = useState<number>(1);
   let navigate = useNavigate();
 
   const handleDetailComponent = async (id: number) => {
@@ -41,13 +48,36 @@ function ArticleDetails() {
   let params = useParams();
   const id = !!params.id ? params.id : "1";
 
+  const getClientFromServer = async (email: string) => {
+    const result = await getClient(email);
+    if (result) {
+      result[0]?.articlesLiked.includes(Number(id))
+        ? setLiked(true)
+        : setLiked(false);
+    } else {
+      setLiked(false);
+    }
+  };
+
+  useEffect(() => {
+    getClientFromServer(user?.email);
+    if (!loggedIn) setLiked(false);
+  }, [user, loggedIn]);
+
   useEffect(() => {
     getArticlesById(parseInt(id)).then((data) => {
       setArticle(data);
-      console.log(data)
+      setLikeNum(data.like);
     });
+
     getAuthors().then((data) => {
       setUsers(data);
+    });
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
     });
   }, [id]);
 
@@ -92,14 +122,6 @@ function ArticleDetails() {
     navigate(`/`);
   };
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-  }, [id]);
-
   const [visible, setVisible] = useState(false);
 
   const toggleVisible = () => {
@@ -123,6 +145,19 @@ function ArticleDetails() {
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 1224px)",
   });
+
+  const handleClickLike = () => {
+    if (loggedIn) {
+      if (liked) {
+        decreaseLike(user.email, Number(id));
+        likeNum ? setLikeNum(likeNum - 1) : setLikeNum(likeNum);
+      } else {
+        increaseLike(user.email, Number(id));
+        setLikeNum(likeNum + 1);
+      }
+      setLiked(!liked);
+    }
+  };
 
   return (
     <div className="mb-5">
@@ -185,20 +220,7 @@ function ArticleDetails() {
                         <span>&nbsp;</span>
                         <li>{article && getDate(article.dateCreate)}</li>
                         <span>&nbsp;</span>
-                        <li>
-                          <i
-                            className="far fa-thumbs-up"
-                            style={{
-                              marginRight: "3px",
-                              color: "rgb(66,133,244)",
-                            }}
-                          ></i>
-                          <span> {article && article.like} </span>
-                          <i
-                            className="far fa-thumbs-down"
-                            style={{ marginRight: "3px" }}
-                          ></i>
-                          <span> {article && article.disLike} </span>
+                        <li className="ms-2">
                           <i
                             className="fas fa-eye"
                             style={{
@@ -228,12 +250,20 @@ function ArticleDetails() {
                           ></div>
                         )}
                       </div>
+                      <Button
+                        variant={liked ? "info" : "outline-info"}
+                        className="mt-3"
+                        onClick={handleClickLike}
+                      >
+                        <i className={`far fa-thumbs-up text-danger`}></i>
+                        <span> {likeNum} </span>
+                      </Button>
                       <div className="row my-5">
                         <p className="h4 mb-4">Related Articles</p>
                         {arrRelated?.map((item, index) => (
                           <div
                             className={
-                              "col-12 col-lg-3 text-center" +
+                              "col-12 col-lg-3 col-md-6 col-xs-6 text-center" +
                               " " +
                               styles.related
                             }
@@ -343,3 +373,6 @@ function ArticleDetails() {
   );
 }
 export default ArticleDetails;
+function async(email: string) {
+  throw new Error("Function not implemented.");
+}

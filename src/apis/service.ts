@@ -2,6 +2,8 @@ import axios from "axios";
 import {
   ArticleModal,
   ArticleModalFormAddDTO,
+  ClientDTO,
+  ClientModal,
   FormEditAdmin,
   IForm,
 } from "../interface";
@@ -256,5 +258,88 @@ export async function editAccountAdmin(adminAcc: FormEditAdmin) {
     return response.data;
   } catch (error) {
     console.error(error);
+  }
+}
+
+export async function checkClientExist(email: string) {
+  try {
+    const check = await axios.get(`/clients?email=${email}`);
+    return check.data.length !== 0 ? true : false;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function addAccountClient(client: ClientDTO) {
+  try {
+    const response = await axios.post(`/clients`, client);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getClient(email: string) {
+  try {
+    const response = await axios.get(`/clients?email=${email}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function increaseLike(email: string, id: number) {
+  try {
+    const userByEmail = await axios.get(`/clients?email=${email}`);
+    const articleById = await axios.get(`/articles?id=${id}`);
+
+    // Increase Like For Acticle
+    const currentLike = articleById.data[0].like;
+    const responseActicle = await axios.patch("/articles/" + id, {
+      like: currentLike + 1,
+    });
+
+    // Push Acticle To Liked List
+    const currentList = userByEmail.data[0].articlesLiked;
+    const updateList = currentList.includes(id)
+      ? currentList
+      : currentList.push(id);
+    console.log(updateList, currentList);
+    const userId = userByEmail.data[0].id;
+    const responseUser = await axios.patch(`/clients/${userId}`, {
+      articlesLiked: currentList,
+    });
+
+    return responseActicle.data, responseUser.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function decreaseLike(email: string, id: number) {
+  try {
+    const userByEmail = await axios.get(`/clients?email=${email}`);
+    const articleById = await axios.get(`/articles?id=${id}`);
+
+    // Decrease Like For Acticle
+    const currentLike = articleById.data[0].like;
+    const responseActicle = await axios.patch("/articles/" + id, {
+      like: currentLike - 1,
+    });
+
+    // Pop Acticle From Liked List
+    const currentList = userByEmail.data[0].articlesLiked;
+    const updateList = currentList.includes(id)
+      ? currentList.pop(id)
+      : currentList;
+    console.log(updateList, currentList);
+    const userId = userByEmail.data[0].id;
+    const responseUser = await axios.patch(`/clients/${userId}`, {
+      articlesLiked: currentList,
+    });
+
+    return responseActicle.data, responseUser.data;
+  } catch (error) {
+    console.log(error);
   }
 }
