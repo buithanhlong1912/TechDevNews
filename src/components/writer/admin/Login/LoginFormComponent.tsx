@@ -1,14 +1,16 @@
 import { useFormik } from "formik";
 import * as React from "react";
-import { Container, Form } from "react-bootstrap";
+import { Container, Form, Toast, ToastContainer } from "react-bootstrap";
 import { login } from "../../../../apis/service";
 import UnAuth from "../../../../guard/UnAuthGuard";
 import { IAdmin } from "../../../../interface";
 import style from "./style.module.css";
 import image from "../../../../logo/techdevnews_logo.png";
 import * as Yup from "yup";
+import { useState } from "react";
 
 const LoginFormComponent = () => {
+  const [showToast, setShowToast] = useState<boolean>(false);
   const formik = useFormik({
     initialValues: {
       userName: "",
@@ -18,9 +20,7 @@ const LoginFormComponent = () => {
       userName: Yup.string()
         .email("Invalid email format")
         .required("Required!"),
-      password: Yup.string()
-        .min(4, "Minimum 4 characters")
-        .required("Required!"),
+      password: Yup.string().required("Required!"),
     }),
     onSubmit: async (values) => {
       const response = await login(values);
@@ -29,7 +29,7 @@ const LoginFormComponent = () => {
         const admin: IAdmin = { ...response, password: "" };
         localStorage.setItem("admin", JSON.stringify(admin));
       } else {
-        return false;
+        setShowToast(true);
       }
     },
   });
@@ -78,25 +78,23 @@ const LoginFormComponent = () => {
               </button>
             </Form>
           </div>
-          {/* 
-          {formik.touched.password && formik.errors.password ? (
-            <ToastContainer position="bottom-end" className="p-3">
-              <Toast
-                onClose={() => setShowToast(false)}
-                show={showToast}
-                delay={5000}
-                autohide
-                bg="success"
-              >
-                <Toast.Header>
-                  <strong className="me-auto">Notification</strong>
-                </Toast.Header>
-                <Toast.Body className="bg-light ">
-                  Edit profile successfully!
-                </Toast.Body>
-              </Toast>
-            </ToastContainer>
-          ) : null} */}
+
+          <ToastContainer position="bottom-end" className="p-3 z-index">
+            <Toast
+              onClose={() => setShowToast(false)}
+              show={showToast}
+              delay={5000}
+              autohide
+              bg="danger"
+            >
+              <Toast.Header>
+                <strong className="me-auto">Login Failed!</strong>
+              </Toast.Header>
+              <Toast.Body className="bg-light ">
+                Wrong email or password
+              </Toast.Body>
+            </Toast>
+          </ToastContainer>
         </Container>
       </div>
     </UnAuth>
