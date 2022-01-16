@@ -1,11 +1,12 @@
 import { useFormik } from "formik";
-import React, { ReactElement, useCallback, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { useEffect } from "react";
-import { Button, Col, Form, Row, Toast, ToastContainer } from "react-bootstrap";
+import { Button, Form, Toast, ToastContainer } from "react-bootstrap";
 import { editAccountAdmin } from "../../../../apis/service";
 import { IAdmin } from "../../../../interface";
 import { getAdminFromLocal } from "../../../../utilities";
-
+import * as Yup from "yup";
+import style from "./style.module.css";
 interface Props {
   adminAccount: IAdmin;
 }
@@ -29,6 +30,11 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
       about: "",
       avatar: "",
     },
+    validationSchema: Yup.object({
+      name: Yup.string().required("Required!"),
+      about: Yup.string().required("Required!"),
+      avatar: Yup.string().required("Required!"),
+    }),
     onSubmit: async (values) => {
       admin.info.name = values.name;
       admin.info.about = values.about;
@@ -76,6 +82,9 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
             value={formik.values.name}
             disabled={!editEnable}
           />
+          {formik.touched.name && formik.errors.name ? (
+            <p className={`${style.error}`}>{formik.errors.name}</p>
+          ) : null}
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -91,6 +100,9 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
             value={formik.values.about}
             disabled={!editEnable}
           />
+          {formik.touched.about && formik.errors.about ? (
+            <p className={`${style.error}`}>{formik.errors.about}</p>
+          ) : null}
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -104,6 +116,9 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
             value={formik.values.avatar}
             disabled={!editEnable}
           />
+          {formik.touched.avatar && formik.errors.avatar ? (
+            <p className={`${style.error}`}>{formik.errors.avatar}</p>
+          ) : null}
         </Form.Group>
 
         <ToastContainer position="bottom-end" className="p-3">

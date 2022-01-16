@@ -6,7 +6,6 @@ import UnAuth from "../../../../guard/UnAuthGuard";
 import { IAdmin } from "../../../../interface";
 import style from "./style.module.css";
 import image from "../../../../logo/techdevnews_logo.png";
-import { useState } from "react";
 import * as Yup from "yup";
 
 const LoginFormComponent = () => {
