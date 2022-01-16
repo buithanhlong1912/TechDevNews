@@ -234,13 +234,13 @@ export async function increasViewByArticleId(id: number) {
   }
 }
 
-export async function getArticlesPage(pageIndex: number) {
+export async function getArticlesPage(pageIndex: number, searchKey: string) {
   try {
     const response = await axios.get(
-      `/articles?_sort=dateCreate&_order=desc&_page=${pageIndex}&_limit=10`
+      `/articles?_sort=dateCreate&_order=desc&_page=${pageIndex}&_limit=10&title_like=${searchKey}`
     );
     const nextPage = await axios.get(
-      `/articles?_sort=dateCreate&_order=desc&_page=${pageIndex + 1}&_limit=10`
+      `/articles?_sort=dateCreate&_order=desc&_page=${pageIndex + 1}&_limit=10&title_like=${searchKey}`
     );
     const data = {
       next: nextPage.data.length !== 0 ? true : false,

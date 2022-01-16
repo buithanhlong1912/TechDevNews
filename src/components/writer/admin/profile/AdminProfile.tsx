@@ -3,7 +3,7 @@ import React, { ReactElement, useState } from "react";
 import { useEffect } from "react";
 import { Button, Form, Toast, ToastContainer } from "react-bootstrap";
 import { editAccountAdmin } from "../../../../apis/service";
-import { IAdmin } from "../../../../interface";
+import { FormEditAdmin, IAdmin } from "../../../../interface";
 import { getAdminFromLocal } from "../../../../utilities";
 import * as Yup from "yup";
 import style from "./style.module.css";
@@ -39,7 +39,17 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
       admin.info.name = values.name;
       admin.info.about = values.about;
       admin.info.avt = values.avatar;
-      await editAccountAdmin(admin);
+      const adminClone: FormEditAdmin = {
+        id: admin.id,
+        info: {
+          about: admin.info.about,
+          name: admin.info.name,
+          avt: admin.info.avt,
+          gender: admin.info.gender,
+          age: admin.info.age,
+        }
+      }
+      await editAccountAdmin(adminClone);
       localStorage.setItem("admin", JSON.stringify(admin));
       setEditEnable(false);
       setShowToast(true);
