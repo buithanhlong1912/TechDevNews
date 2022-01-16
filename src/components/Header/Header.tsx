@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef, ChangeEvent } from "react";
 import "./Header.css";
-import { getCategoies, getSearch } from "../../apis/service";
+import {
+  addAccountClient,
+  checkClientExist,
+  getCategoies,
+  getSearch,
+} from "../../apis/service";
 import img from "../../logo/techdevnews_logo.png";
 import {
   Button,
@@ -15,24 +20,20 @@ import { useNavigate } from "react-router-dom";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { getUserFromLocal } from "../../utilities";
 import { useGlobalContext } from "../../context/GlobalContext";
+import { ClientDTO, ClientModal } from "../../interface";
 
 function Header() {
+  const { user, setUser, loggedIn, setLoggedIn } = useGlobalContext();
   const [menuTitle, setTitle] = useState([]);
   const [valueInput, setValue] = useState("");
-  const [loggedIn, setLoggedIn] = useState<boolean>(false);
-  const [user, setUser] = useState({
-    email: "",
-    imageUrl: "",
-    name: "",
-  });
   const typingTimeoutRef = useRef(0);
   const clientId =
     "421005288141-79gs72nt5s3divhvnm8fritsmjl2gnol.apps.googleusercontent.com";
 
-  const userName = getUserFromLocal();
-  const {setPageIndex} = useGlobalContext();
+  // const userName = getUserFromLocal();
+  const { setPageIndex } = useGlobalContext();
 
-  const onLoginSuccess = (res: any) => {
+  const onLoginSuccess = async (res: any) => {
     localStorage.setItem("user", JSON.stringify(res.profileObj));
     setUser({
       email: res.profileObj.email,
@@ -40,6 +41,16 @@ function Header() {
       name: res.profileObj.name,
     });
     setLoggedIn(true);
+    const result = await checkClientExist(res.profileObj.email);
+    if (!result) {
+      const client: ClientDTO = {
+        email: res.profileObj.email,
+        imageUrl: res.profileObj.imageUrl,
+        name: res.profileObj.name,
+        articlesLiked: [],
+      };
+      await addAccountClient(client);
+    }
   };
 
   const onFailureSuccess = (res: any) => {
@@ -53,13 +64,8 @@ function Header() {
       name: "",
     });
     localStorage.removeItem("user");
+    setLoggedIn(false);
   };
-
-  useEffect(() => {
-    if (user.email !== '') {
-      setLoggedIn(!loggedIn);
-    }
-  }, [user]);
 
   const Navigate = useNavigate();
 
@@ -67,6 +73,7 @@ function Header() {
     getCategoies().then((data) => {
       setTitle(data);
     });
+    if (localStorage.getItem("user")) setLoggedIn(true);
   }, []);
 
   const handleCategory = (id: number) => {
@@ -122,7 +129,7 @@ function Header() {
               </Nav.Link>
             ))}
           </Nav>
-          <Nav>
+          <Nav className="align-items-center">
             <Form className="d-flex mr-3" onSubmit={handleSubmit}>
               <FormControl
                 type="search"
@@ -138,15 +145,25 @@ function Header() {
             &nbsp;&nbsp;&nbsp;
             {loggedIn || localStorage.getItem("user") ? (
               <NavDropdown
-                title={`${userName.name}`}
+                title={
+                  <>
+                    <img
+                      alt=""
+                      src={user.imageUrl}
+                      width="40"
+                      height="40"
+                      className="rounded-circle me-2"
+                    />
+                    <span>{user.name}</span>
+                  </>
+                }
                 id="collasible-nav-dropdown"
               >
-                {/* <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item> */}
                 <GoogleLogout
                   clientId={clientId}
                   render={(renderProps) => (
                     <NavDropdown.Item onClick={renderProps.onClick}>
-                      <i className="fab fa-google"></i> Logout by Google
+                      <i className="fab fa-google me-2"></i> Logout
                     </NavDropdown.Item>
                   )}
                   buttonText="Logout"
@@ -157,9 +174,12 @@ function Header() {
               <GoogleLogin
                 clientId={clientId}
                 render={(renderProps) => (
-                  <Nav.Link onClick={renderProps.onClick}>
-                    <i className="far fa-user-circle"></i>
-                  </Nav.Link>
+                  <div
+                    className="text-muted pointer"
+                    onClick={renderProps.onClick}
+                  >
+                    <i className="far fa-user-circle fa-2x"></i>
+                  </div>
                 )}
                 buttonText="Login"
                 onSuccess={onLoginSuccess}

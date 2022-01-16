@@ -3,6 +3,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import {
   Button,
   Container,
+  Form,
   OverlayTrigger,
   Pagination,
   Table,
@@ -18,7 +19,8 @@ interface Props {
   reLoad: () => void;
   nextPage: () => void;
   prePage: () => void;
-  pageIndex: number
+  actionValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  pageIndex: number;
 }
 
 export default function ArticleList({
@@ -26,7 +28,8 @@ export default function ArticleList({
   reLoad,
   nextPage,
   prePage,
-  pageIndex
+  pageIndex,
+  actionValueChange
 }: Props): ReactElement {
   const navigate = useNavigate();
   const handleDelete = async (id: number) => {
@@ -35,10 +38,15 @@ export default function ArticleList({
       reLoad();
     }
   };
-  
+
   return (
     <div className="">
+      <div className="d-flex justify-content-between">
       <h2 className="text-center">List Article</h2>
+        <Form.Group className="mb-3">
+          <Form.Control onChange={actionValueChange} type='text' placeholder="Search article by title" />
+        </Form.Group>
+      </div>
       <div className="list-article">
         {listArticle.listArticle.length !== 0 ? (
           <Table responsive>
@@ -53,7 +61,7 @@ export default function ArticleList({
             <tbody className="border-top-0">
               {listArticle.listArticle.map((article, i) => (
                 <tr key={article.id} className={style.tableRow}>
-                  <td className="text-center">{pageIndex * 10 - 10 + i}</td>
+                  <td className="text-center">{pageIndex * 10 - 9 + i}</td>
                   <td className={``}>{article.title}</td>
                   <td className="text-center ">
                     {moment(article.dateCreate).format("DD/MM/YYYY, h:mm:ss a")}
@@ -85,26 +93,29 @@ export default function ArticleList({
         ) : (
           <div></div>
         )}
-        <div>
+        <div className="d-flex justify-content-between align-items-center">
           <Pagination>
             <Pagination.Prev disabled={pageIndex === 1} onClick={prePage} />
-            <Pagination.Next disabled={!listArticle.next as boolean} onClick={nextPage} />
+            <Pagination.Next
+              disabled={!listArticle.next as boolean}
+              onClick={nextPage}
+            />
           </Pagination>
+          <OverlayTrigger
+            placement="left"
+            overlay={<Tooltip id={`tooltip-left`}>Add new acticle</Tooltip>}
+          >
+            <button
+              onClick={() => {
+                navigate("/admin/create-new");
+              }}
+              className={`${style.add}`}
+            >
+              +
+            </button>
+          </OverlayTrigger>
         </div>
       </div>
-      <OverlayTrigger
-        placement="left"
-        overlay={<Tooltip id={`tooltip-left`}>Add new acticle</Tooltip>}
-      >
-        <button
-          onClick={() => {
-            navigate("/admin/create-new");
-          }}
-          className={`position-absolute ${style.add}`}
-        >
-          +
-        </button>
-      </OverlayTrigger>
     </div>
   );
 }

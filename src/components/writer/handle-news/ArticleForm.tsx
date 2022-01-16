@@ -7,16 +7,11 @@ import 'suneditor/dist/css/suneditor.min.css';
 import { createAricle, editArticlesById, getArticlesId } from '../../../apis/service';
 import { ArticleDetailDTO, ArticleModal, ArticleModalFormAddDTO, IAdmin } from '../../../interface';
 import { getAdminFromLocal } from '../../../utilities';
+import * as Yup from "yup";
 
 interface Props {
     type: string,
     reLoad: () => void
-}
-
-interface IValidateForm {
-    title: string,
-    description: string,
-    cover: string,
 }
 
 export default function ArticleForm({ type, reLoad }: Props): ReactElement {
@@ -29,21 +24,6 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
 
     const admin: IAdmin = getAdminFromLocal();
 
-    const validate = (values: IValidateForm) => {
-        const errors = {} as IValidateForm;
-        if (!values.title) {
-            errors.title = 'You need fill title of article!';
-        }
-        if (!values.description) {
-            errors.description = 'You need fill description of article!';
-        }
-
-        if (!values.cover) {
-            errors.cover = 'You need fill image cover of article!';
-        }
-        return errors;
-    };
-
     const formik = useFormik({
         initialValues: {
             title: '',
@@ -52,7 +32,11 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
             cover: '',
             categoryId: 1,
         },
-        validate,
+        validationSchema: Yup.object({
+            title: Yup.string().required("You need fill title of article!"),
+            description: Yup.string().required("You need fill description of article!"),
+            cover: Yup.string().required("You need fill image cover of article!"),
+          }),
         onSubmit: async (values) => {
             const authorId = admin.id;
             const article: ArticleModalFormAddDTO = {
@@ -127,7 +111,7 @@ export default function ArticleForm({ type, reLoad }: Props): ReactElement {
                         onBlur={formik.handleBlur}
                         value={formik.values.description}
                     />
-                    {formik.errors.description && formik.touched.description ?
+                    {formik.touched.description && formik.errors.description ?
                         <Form.Text className="mx-2 text-danger">
                             {formik.errors.description}
                         </Form.Text>

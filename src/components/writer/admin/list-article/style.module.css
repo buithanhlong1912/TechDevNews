@@ -12,17 +12,14 @@
 }
 
 .add {
-  bottom: 5rem;
-  right: 7rem;
-  display: block;
   border-radius: 100%;
-  width: 3.7rem;
-  height: 3.7rem;
-  font-size: 2rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  font-size: 1.65rem;
   color: #fff;
   background: #86a8e7;
   border: #86a8e7;
-  z-index: 999;
+  padding-bottom: 2.4rem;
 }
 
 .add:hover {

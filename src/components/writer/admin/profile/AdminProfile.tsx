@@ -1,11 +1,12 @@
 import { useFormik } from "formik";
-import React, { ReactElement, useCallback, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { useEffect } from "react";
-import { Button, Col, Form, Row, Toast, ToastContainer } from "react-bootstrap";
+import { Button, Form, Toast, ToastContainer } from "react-bootstrap";
 import { editAccountAdmin } from "../../../../apis/service";
-import { IAdmin } from "../../../../interface";
+import { FormEditAdmin, IAdmin } from "../../../../interface";
 import { getAdminFromLocal } from "../../../../utilities";
-
+import * as Yup from "yup";
+import style from "./style.module.css";
 interface Props {
   adminAccount: IAdmin;
 }
@@ -29,11 +30,26 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
       about: "",
       avatar: "",
     },
+    validationSchema: Yup.object({
+      name: Yup.string().required("Required!"),
+      about: Yup.string().required("Required!"),
+      avatar: Yup.string().required("Required!"),
+    }),
     onSubmit: async (values) => {
       admin.info.name = values.name;
       admin.info.about = values.about;
       admin.info.avt = values.avatar;
-      await editAccountAdmin(admin);
+      const adminClone: FormEditAdmin = {
+        id: admin.id,
+        info: {
+          about: admin.info.about,
+          name: admin.info.name,
+          avt: admin.info.avt,
+          gender: admin.info.gender,
+          age: admin.info.age,
+        }
+      }
+      await editAccountAdmin(adminClone);
       localStorage.setItem("admin", JSON.stringify(admin));
       setEditEnable(false);
       setShowToast(true);
@@ -76,6 +92,9 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
             value={formik.values.name}
             disabled={!editEnable}
           />
+          {formik.touched.name && formik.errors.name ? (
+            <p className={`${style.error}`}>{formik.errors.name}</p>
+          ) : null}
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -91,6 +110,9 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
             value={formik.values.about}
             disabled={!editEnable}
           />
+          {formik.touched.about && formik.errors.about ? (
+            <p className={`${style.error}`}>{formik.errors.about}</p>
+          ) : null}
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -104,14 +126,25 @@ export default function AdminProfile({ adminAccount }: Props): ReactElement {
             value={formik.values.avatar}
             disabled={!editEnable}
           />
+          {formik.touched.avatar && formik.errors.avatar ? (
+            <p className={`${style.error}`}>{formik.errors.avatar}</p>
+          ) : null}
         </Form.Group>
 
         <ToastContainer position="bottom-end" className="p-3">
-          <Toast onClose={() => setShowToast(false)} bg='primary' show={showToast} delay={5000} autohide>
+          <Toast
+            onClose={() => setShowToast(false)}
+            show={showToast}
+            delay={5000}
+            autohide
+            bg="success"
+          >
             <Toast.Header>
               <strong className="me-auto">Notification</strong>
             </Toast.Header>
-            <Toast.Body>Edit profile successfully!</Toast.Body>
+            <Toast.Body className="bg-light ">
+              Edit profile successfully!
+            </Toast.Body>
           </Toast>
         </ToastContainer>
 

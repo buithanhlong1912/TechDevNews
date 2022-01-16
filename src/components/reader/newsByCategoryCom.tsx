@@ -15,7 +15,7 @@ export default function NewsByCategoryCom() {
   const [listAuthors, setListAuthors] = useState<UserModal[]>([]);
   let navigate = useNavigate();
   const { id } = useParams();
-  const {pageIndex,setPageIndex} = useGlobalContext();
+  const { pageIndex, setPageIndex } = useGlobalContext();
 
   useEffect(() => {
     getNewsByCategory(Number(param.id), pageIndex).then((data) =>
@@ -52,7 +52,6 @@ export default function NewsByCategoryCom() {
   };
 
   return (
-    
     <div>
       <div className="container ">
         <p className="h1 text pt-5 ps-5">The Newest News</p>
@@ -111,7 +110,7 @@ export default function NewsByCategoryCom() {
           </div>
           <div className="col-lg-4">
             <img
-              className="ads sticky-top"
+              className="ads"
               src="https://scontent.fhan4-3.fna.fbcdn.net/v/t39.30808-6/271550698_4109672639135219_8325075614311138622_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=730e14&_nc_ohc=9foygCd8KucAX8Outce&_nc_ht=scontent.fhan4-3.fna&oh=00_AT8BQK5Sdp85j5ge6zQOHb6K3vskJY7VxP9azIHsAi-BXQ&oe=61E4B22D"
             />
           </div>

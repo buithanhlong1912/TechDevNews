@@ -65,21 +65,36 @@ export interface ArticleDetailDTO {
   like: number;
   disLike: number;
   view: number;
-  user: IAdmin
+  user: IAdmin;
 }
 
 export interface ListArticleAdmin {
-  next: Boolean,
-  listArticle: ArticleModal[]
+  next: Boolean;
+  listArticle: ArticleModal[];
 }
 
 export interface FormEditAdmin {
-  id: number,
+  id: number;
   info: {
-    about: string,
-    name: string,
-    avt: string,
-    gender: string,
-    age: number
-  }
+    about: string;
+    name: string;
+    avt: string;
+    gender: string;
+    age: number;
+  };
+}
+
+export interface ClientModal {
+  id: number;
+  email: string;
+  imageUrl: string;
+  name: string;
+  articlesLiked: number[];
+}
+
+export interface ClientDTO {
+  email: string;
+  imageUrl: string;
+  name: string;
+  articlesLiked: number[];
 }

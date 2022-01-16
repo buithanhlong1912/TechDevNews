@@ -73,3 +73,8 @@
   background-color: rgb(89, 179, 111);
   color: white;
 }
+
+.error {
+  color: #ec2f4b;
+  /* text-shadow: 0 0 0.125rem hsl(0 0% 100% / 0.3), 0 0 0.45rem currentColor; */
+}

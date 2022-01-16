@@ -13,6 +13,14 @@ export interface Props {
   getCategory: (id: number) => string;
   pageIndex: number;
   setPageIndex: (pageIndex: number) => void;
+  user: {
+    email: string;
+    imageUrl: string;
+    name: string;
+  };
+  setUser: (user: { email: string; imageUrl: string; name: string }) => void;
+  loggedIn: boolean;
+  setLoggedIn: (loggedIn: boolean) => void;
 }
 
 const CreateGlobalContext = createContext<Props>({
@@ -42,6 +50,14 @@ const CreateGlobalContext = createContext<Props>({
   },
   pageIndex: 1,
   setPageIndex: () => {},
+  user: {
+    email: "",
+    imageUrl: "",
+    name: "",
+  },
+  setUser: () => {},
+  loggedIn: false,
+  setLoggedIn: () => {},
 });
 
 const useGlobalContext = () => useContext(CreateGlobalContext);
