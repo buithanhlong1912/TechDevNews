@@ -25,3 +25,24 @@
 .add:hover {
   background-color: #91eae4;
 }
+
+.input {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 1px solid #86a8e7;
+  padding: 0.2rem 0.7rem;
+  border-radius: 5px;
+}
+
+.input:focus {
+  outline: none;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 1px solid #86a8e7;
+}
+
+.input:hover {
+  box-shadow: 0 10px 20px -8px rgb(77, 173, 218);
+}

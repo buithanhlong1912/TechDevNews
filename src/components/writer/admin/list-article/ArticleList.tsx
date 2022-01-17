@@ -29,7 +29,7 @@ export default function ArticleList({
   nextPage,
   prePage,
   pageIndex,
-  actionValueChange
+  actionValueChange,
 }: Props): ReactElement {
   const navigate = useNavigate();
   const handleDelete = async (id: number) => {
@@ -42,9 +42,14 @@ export default function ArticleList({
   return (
     <div className="">
       <div className="d-flex justify-content-between">
-      <h2 className="text-center">List Article</h2>
+        <h2 className="text-center">List Article</h2>
         <Form.Group className="mb-3">
-          <Form.Control onChange={actionValueChange} type='text' placeholder="Search article by title" />
+          <input
+            onChange={actionValueChange}
+            type="text"
+            placeholder="Search article by title"
+            className={`${style.input}`}
+          />
         </Form.Group>
       </div>
       <div className="list-article">
@@ -93,7 +98,7 @@ export default function ArticleList({
         ) : (
           <div></div>
         )}
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between align-items-center mt-2">
           <Pagination>
             <Pagination.Prev disabled={pageIndex === 1} onClick={prePage} />
             <Pagination.Next
